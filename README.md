@@ -1,4 +1,4 @@
-# Project Name: 
+# Project Name: StudyTube 
 ## Project Description
 
 ## Group Members
