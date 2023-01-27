@@ -5,7 +5,9 @@ import (
   "net/http"
   "os"
   "log"
-  "your-awesome-project/src/server/utils"
+  "angular-go-boilerplate/src/server/utils"
+  "fmt"
+  "github.com/rs/cors"
 )
 
 func main() {
@@ -13,10 +15,14 @@ func main() {
 
   r.HandleFunc("/hello-world", helloWorld)
 
-  http.Handle("/", r)
+  // Solves Cross Origin Access Issue
+  c := cors.New(cors.Options{
+    AllowedOrigins: []string{"http://localhost:4200"},
+  })
+  handler := c.Handler(r)
 
   srv := &http.Server{
-    Handler: r,
+    Handler: handler,
     Addr:    ":" + os.Getenv("PORT"),
   }
 
@@ -30,7 +36,7 @@ func helloWorld(w http.ResponseWriter, r *http.Request) {
     Title: "Golang + Angular Starter Kit",
   }
 
-  jsonBytes, err := utils.StructToJSON(data); if err != nil {
+  jsonBytes, err := utils.StructToJson(data); if err != nil {
     fmt.Print(err)
   }
 
