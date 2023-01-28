@@ -5,8 +5,9 @@ import (
   "net/http"
   "os"
   "log"
-  
   "studytube/src/server/utils"
+  "fmt"
+  "github.com/rs/cors"
 )
 
 func main() {
@@ -14,14 +15,18 @@ func main() {
 
   r.HandleFunc("/hello-world", helloWorld)
 
-  http.Handle("/", r)
+  // Solves Cross Origin Access Issue
+  c := cors.New(cors.Options{
+    AllowedOrigins: []string{"http://localhost:4200"},
+  })
+  handler := c.Handler(r)
 
   srv := &http.Server{
-    Handler: r,
+    Handler: handler,
     Addr:    ":" + os.Getenv("PORT"),
   }
 
-  log.Fatal(srv.ListenAndServe())
+  log.Fatal(srv.ListenAndServe()
 }
 
 func helloWorld(w http.ResponseWriter, r *http.Request) {
