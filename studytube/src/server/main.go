@@ -5,7 +5,7 @@ import (
   "net/http"
   "os"
   "log"
-  "your-awesome-project/src/server/utils"
+  "studytube/src/server/utils"
 )
 
 func main() {
