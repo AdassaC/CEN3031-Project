@@ -1,15 +1,19 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
 	"os"
 
+	"net/smtp"
+	"bytes"
+	"strings"
+
 	"github.com/adassacoimin/CEN3031-Project/studytube/src/server/utils"
 	"github.com/gorilla/mux"
 	"github.com/rs/cors"
-	"net/smtp"
 )
 
 func main() {
@@ -48,8 +52,8 @@ func HelloWorld(w http.ResponseWriter, r *http.Request) {
 	return
 }
 
-func BugReport(from string, msg []byte) {
-
+func BugReport(from string, msg []byte, subject string) {
+	// send Email
 	auth := smtp.PlainAuth("", from, "Password123", "smtp.gmail.com");
 
 	to := []string{"studytubesupport@gmail.com"}
@@ -58,4 +62,22 @@ func BugReport(from string, msg []byte) {
 
 	if err != nil {
 		log.Fatal(err) }
+	// POST Email Info
+	postBody, _ := json.Marshal(map[string]string{
+		"subject": subject,
+		"from": from,
+		"to": strings.Join(to, " "),
+		"msg": string(msg[:]),
+	})
+	
+	responseBody := bytes.NewBuffer(postBody)
+
+	webName := "https://postman-echo.com/post" // temp var for webName -- MUST be changed to REAL website name 
+
+	resp, err := http.Post(webName, "application/json", responseBody)
+
+	if err != nil {
+		log.Fatalf("An Error Occured %v", err)
+	 }
+	 defer resp.Body.Close()
 }
