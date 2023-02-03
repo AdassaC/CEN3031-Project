@@ -45,4 +45,11 @@ func helloWorld(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(jsonBytes)
 	return
+} 
+
+func Firebase() {
+	/*app, err := firebase.NewApp(context.Background(), nil)
+	if err != nil {
+		log.Fatalf("error initializing app: %v\n", err)
+	} */
 }
