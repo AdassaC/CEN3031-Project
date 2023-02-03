@@ -10,7 +10,7 @@ import (
 )
 
 var (
-	firebaseConfigFile = os.Getenv("FIREBASE_CONFIG_FILE")
+	firebaseConfigFile = os.Getenv("FIREBASE_CONFIG_FILE") // change 
 )
 
 func InitAuth() (*auth.Client, error) {
