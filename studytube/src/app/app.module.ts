@@ -11,6 +11,8 @@ import { AboutComponent } from './pages/about/about.component';
 import { ReportBugsComponent } from './pages/report-bugs/report-bugs.component';
 //import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { FormsModule } from '@angular/forms';
+import { RegisterComponent } from './register/register.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -19,8 +21,10 @@ import { FormsModule } from '@angular/forms';
     FooterComponent,
     HomeComponent,
     AboutComponent,
-    ReportBugsComponent
-    //DashboardComponent,
+    ReportBugsComponent,
+    //DashboardComponent,,
+    RegisterComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
