@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './components/login/login.component';
-import { RegisterComponent } from './components/register/register.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
 
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
@@ -47,6 +47,9 @@ const routes: Routes = [
   { path: 'settings', component: SettingsComponent}
 
   //Gonna have to change to include user id in path
+
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
 ];
 
 @NgModule({
