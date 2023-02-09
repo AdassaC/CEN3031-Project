@@ -10,9 +10,9 @@
     <div class="wrapper">
         <h1>Sign Up</h1>
         <form action="#">
-            <input type="text" placeholder="Username">
+            <input type="text" placeholder="Email" #userEmail required>
             <input type="text" placeholder="Name">
-            <input type="password" placeholder="Password">
+            <input type="password" placeholder="Password" #userPwd required>
             <input type="password" placeholder="Re-enter Password">
         </form>
         <div class="terms">
@@ -20,10 +20,12 @@
             <label for="checkbox"> I agree to these 
                 <a href="#">Terms & Conditions</a></label>
         </div>
-        <button>Sign Up</button>
+        <button (click)="authService.SignUp(userEmail.value, userPwd.value)">Sign Up</button>
         <div class="member">
             Already a member? <a routerLink="/login">Login</a>
         </div>
     </div>
 </body>
 </html>
+
+<
