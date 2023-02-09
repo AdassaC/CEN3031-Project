@@ -3,6 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { RegisterComponent } from './register/register.component';
+import { LoginComponent } from './login/login.component';
 
 // Firebase services + environment module
 import { AngularFireModule } from '@angular/fire/compat';
@@ -27,6 +29,8 @@ import { AuthService } from './shared/services/auth';
     SignUpComponent,
     ForgotPasswordComponent,
     VerifyEmailComponent
+    RegisterComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
