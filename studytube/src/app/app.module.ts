@@ -9,6 +9,8 @@ import { FooterComponent } from './shared/footer/footer.component';
 import { HomeComponent } from './pages/home/home.component';
 import { AboutComponent } from './pages/about/about.component';
 import { ReportBugsComponent } from './pages/report-bugs/report-bugs.component';
+//import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -18,11 +20,13 @@ import { ReportBugsComponent } from './pages/report-bugs/report-bugs.component';
     HomeComponent,
     AboutComponent,
     ReportBugsComponent
+    //DashboardComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
