@@ -25,7 +25,9 @@
             <input type="text" placeholder="Username" #userName required>
             <input type="password" placeholder="Password" #userPassword required>
             <div class="recover">
-                <a href="#">Forgot Password?</a>
+                <div class="forgotPassword">
+                    <span routerLink="/forgot-password">Forgot Password?</span>
+                  </div>
             </div>
         </form>
         <button (click)="authService.SignIn(userName.value, userPassword.value)">Sign In</button>
