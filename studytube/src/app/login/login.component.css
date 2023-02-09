@@ -67,3 +67,15 @@ input:focus {
     text-decoration: none;
     color: #464647;
 }
+.left{
+    float:left;
+    width:20%;
+    overflow-x:auto;
+    white-space: nowrap; 
+  }
+  .right{
+    float:left;
+    width:80%;
+    overflow-x:auto;
+    white-space: nowrap; 
+  }

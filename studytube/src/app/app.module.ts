@@ -28,7 +28,7 @@ import { AuthService } from './shared/services/auth';
     SignInComponent,
     SignUpComponent,
     ForgotPasswordComponent,
-    VerifyEmailComponent
+    VerifyEmailComponent,
     RegisterComponent,
     LoginComponent
   ],
