@@ -11,7 +11,8 @@ body {
 .wrapper {
     width: 330px;
     padding: 2rem 1rem;
-    margin: 50px auto;
+    /*margin: 50px auto;*/
+    margin: auto;
     background-color: #fff;
     border-radius: 10px;
     text-align: center;
