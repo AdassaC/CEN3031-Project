@@ -20,6 +20,13 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
 import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
 import { AuthService } from './shared/services/auth';
 
+// Report bugs routing
+import { AboutComponent } from './pages/about/about.component';
+import { HomeComponent } from './pages/home/home.component';
+import { ReportBugsComponent } from './pages/report-bugs/report-bugs.component';
+import { FooterComponent } from './shared/footer/footer.component';
+import { NavbarComponent } from './shared/navbar/navbar.component';
+
 
 @NgModule({
   declarations: [
@@ -30,7 +37,12 @@ import { AuthService } from './shared/services/auth';
     ForgotPasswordComponent,
     VerifyEmailComponent,
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
+    AboutComponent,
+    HomeComponent,
+    ReportBugsComponent,
+    FooterComponent,
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,
