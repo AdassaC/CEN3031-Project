@@ -27,6 +27,7 @@ import { ReportBugsComponent } from './pages/report-bugs/report-bugs.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SpotifyPlayerComponent } from './components/spotify-player/spotify-player.component';
 
 
 @NgModule({
@@ -44,6 +45,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ReportBugsComponent,
     FooterComponent,
     NavbarComponent,
+    SpotifyPlayerComponent,
   ],
   imports: [
     BrowserModule,
