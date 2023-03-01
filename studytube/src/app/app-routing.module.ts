@@ -43,9 +43,6 @@ const routes: Routes = [
   { path: 'todo', component: TodoComponent},
   { path: 'settings', component: SettingsComponent}
   //Gonna have to change to include user id in path
-
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
 ];
 
 @NgModule({
