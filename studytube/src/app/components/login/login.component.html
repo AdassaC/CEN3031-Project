@@ -1,0 +1,63 @@
+<input type="submit" class="button" value="Home" routerLink="/home">
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In</title>
+</head>
+
+<body>
+    <!--
+         <h3>Sign In</h3>
+        <div class="formGroup">
+          <input type="text" class="formControl" placeholder="Username" #userName required>
+        </div>
+        <div class="formGroup">
+          <input type="password" class="formControl" placeholder="Password" #userPassword required>
+        </div>
+        <div class="formGroup">
+            <input type="button" class="btn btnPrimary" value="Log in" (click)="authService.SignIn(userName.value, userPassword.value)">
+          </div>
+    -->
+    <div class="wrapper">
+        <h1>Sign In</h1>
+        <form action="#">
+            <input type="text" placeholder="Username" #userName required>
+            <input type="password" placeholder="Password" #userPassword required>
+            <div class="recover">
+                <div class="forgotPassword">
+                    <a routerLink="/forgot-password">Forgot Password?</a>
+                </div>
+            </div>
+        </form>
+        <button (click)="authService.SignIn(userName.value, userPassword.value)">Sign In</button>
+        <button (click)="authService.GoogleAuth()">
+            <div class="left">
+                <img width="20px" alt="Google sign-in"
+                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
+            </div>
+            <div class="right">
+                Login with Google
+            </div>
+        </button>
+        <button (click)="authService.FacebookAuth()">
+            <div class="left">
+                <img width="20px" alt="Facebook sign-in"
+                    src="https://upload.wikimedia.org/wikipedia/commons/4/4d/F_icon_reversed.svg" />
+            </div>
+            <div class="right">
+                Login with Facebook
+            </div>
+        </button>
+        <div class="member">
+            Not a member?
+            <a routerLink="/register">Sign up here</a>
+        </div>
+    </div>
+</body>
+
+</html>

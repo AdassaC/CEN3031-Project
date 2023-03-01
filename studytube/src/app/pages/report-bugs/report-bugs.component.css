@@ -1,0 +1,14 @@
+
+  .report_bugs_page {
+    align-items: center;
+    justify-content: center;
+    display: grid;
+    gap: 2rem 4rem;
+  }
+  @media screen and (min-width: 992px){
+    .report_bugs_page {
+      align-items: center;
+      justify-items: center;
+    }
+  
+  }

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from 'src/app/shared/services/auth';
 
 @Component({
   selector: 'app-register',
@@ -7,7 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent {
-  constructor(private route: ActivatedRoute, private router: Router) { }
+  constructor(private route: ActivatedRoute, private router: Router, public authService: AuthService) { }
 
   goToSignIn(): void {
     this.router.navigate(['./login']);
