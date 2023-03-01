@@ -38,9 +38,6 @@ const routes: Routes = [
   { path: 'navbar', component: NavbarComponent},
   { path: 'footer', component: FooterComponent}
   //Gonna have to change to include user id in path
-
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
 ];
 
 @NgModule({
