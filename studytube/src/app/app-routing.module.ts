@@ -10,6 +10,7 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
 import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
 // route guard
 import { AuthGuard } from './shared/guard/auth.guard';
+import { SpotifyPlayerComponent } from './components/spotify-player/spotify-player.component';
 import { HomeComponent } from './pages/home/home.component';
 import { AboutComponent } from './pages/about/about.component';
 import { ReportBugsComponent } from './pages/report-bugs/report-bugs.component';
@@ -27,6 +28,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   
+  { path: 'player', component: SpotifyPlayerComponent},
   { path: 'home', component: HomeComponent},
   { path: 'about', component: AboutComponent},
   { path: 'report-bugs', component: ReportBugsComponent},

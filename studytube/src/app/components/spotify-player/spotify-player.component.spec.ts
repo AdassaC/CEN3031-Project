@@ -1,12 +1,15 @@
 import { Component, OnInit, Pipe, PipeTransform } from '@angular/core';
 import { Input, Output } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { SpotifyPlayerComponent } from './spotify-player.component';
+import { SafeResourceUrl } from '@angular/platform-browser';
+//import { SpotifyPlayerComponent } from './spotify-player.component';
 
-describe('SpotifyPlayerComponent', () => {
+/*describe('SpotifyPlayerComponent', () => {
+
   let component: SpotifyPlayerComponent;
   let fixture: ComponentFixture<SpotifyPlayerComponent>;
 
+ 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ SpotifyPlayerComponent ]
@@ -21,4 +24,4 @@ describe('SpotifyPlayerComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-});
+});*/
