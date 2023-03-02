@@ -9,4 +9,8 @@ describe('AuthGuard', () => {
     TestBed.configureTestingModule({});
     guard = TestBed.inject(AuthGuard);
   });
+
+  it('should be created Guard', () => {
+    expect(guard).toBeTruthy();
+  });
 });
