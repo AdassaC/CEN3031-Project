@@ -5,7 +5,7 @@ describe('DashboardComponent', () => {
   let component: DashboardComponent;
   let fixture: ComponentFixture<DashboardComponent>;
 
-  beforeEach(() => {
+  beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ DashboardComponent ]
     })
@@ -16,7 +16,7 @@ describe('DashboardComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(DashboardComponent);
-    dashboard = fixture.componentInstance;
+    component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
