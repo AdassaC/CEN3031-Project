@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
@@ -28,6 +29,9 @@ func main() {
 	r := mux.NewRouter()
 
 	r.HandleFunc("/hello-world", helloWorld)
+	//routing for retrieving taskList and addTask
+	r.HandleFunc("/tasks/{userID}", handleGetTasksByUserID).Methods("GET")
+	r.HandleFunc("/tasks", handleAddTask).Methods("POST")
 
 	// Solves Cross Origin Access Issue
 	c := cors.New(cors.Options{
@@ -79,6 +83,18 @@ func main() {
 		}
 	}
 
+	//test updateStatus
+	err = updateTaskStatus("Random Task 2", "Started")
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	//test deleteTask
+	err = deleteTask("Random Task Wrong User")
+	if err != nil {
+		fmt.Println(err)
+	}
+
 	log.Fatal(srv.ListenAndServe())
 }
 
@@ -120,7 +136,7 @@ func getTasksByUserID(userID string) ([]Task, error) {
 	}
 	defer cursor.Close(context.TODO())
 
-	//decode the results into a slice of Test structs
+	//decode the results into a list of Task structs
 	var tasks []Task
 	for cursor.Next(context.TODO()) {
 		var task Task
@@ -134,7 +150,7 @@ func getTasksByUserID(userID string) ([]Task, error) {
 		return nil, err
 	}
 
-	//return the slice of tasks
+	//return the list of tasks
 	return tasks, nil
 }
 
@@ -163,4 +179,107 @@ func addTask(description, status, userID string) error {
 	}
 
 	return nil
+}
+
+// similar functionality to addTask, query the DB for correct task and delete it
+func deleteTask(description string) error {
+	//connect to MongoDB on localhost port 27017
+	client, err := mongo.Connect(context.Background(), options.Client().ApplyURI("mongodb://localhost:27017"))
+	if err != nil {
+		return fmt.Errorf("Error connecting to MongoDB: %v", err)
+	}
+	defer client.Disconnect(context.Background())
+
+	//get a handle to the tasks collection
+	collection := client.Database("CEN3031_Test").Collection("TestStructure")
+
+	//delete the task from the database
+	status := bson.M{"description": description}
+	result, err := collection.DeleteOne(context.Background(), status)
+	if err != nil {
+		return fmt.Errorf("Error deleting task from database: %v", err)
+	}
+	if result.DeletedCount == 0 {
+		return fmt.Errorf("Task not found in database")
+	}
+
+	return nil
+}
+
+// similar functionality to addTask, query the DB for correct task and alter the status
+func updateTaskStatus(description string, newStatus string) error {
+	//connect to MongoDB on localhost port 27017
+	client, err := mongo.Connect(context.Background(), options.Client().ApplyURI("mongodb://localhost:27017"))
+	if err != nil {
+		return fmt.Errorf("Error connecting to MongoDB: %v", err)
+	}
+	defer client.Disconnect(context.Background())
+
+	//get a handle to the tasks collection
+	collection := client.Database("CEN3031_Test").Collection("TestStructure")
+
+	//update the task status in the database
+	status := bson.M{"description": description}
+	update := bson.M{"$set": bson.M{"status": newStatus}}
+	result, err := collection.UpdateOne(context.Background(), status, update)
+	if err != nil {
+		return fmt.Errorf("Error updating task status in database: %v", err)
+	}
+	if result.ModifiedCount == 0 {
+		return fmt.Errorf("Task not found in database")
+	}
+
+	return nil
+}
+
+// Handler Funcs
+func handleGetTasksByUserID(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	userID := vars["userID"]
+
+	//retrieve list of tasks to be written to json with error checks
+	tasks, err := getTasksByUserID(userID)
+	if err != nil {
+		//error handling WIP
+		return
+	}
+
+	//put task into format for transfer
+	jsonBytes, err := utils.StructToJSON(tasks)
+	if err != nil {
+		//error handling WIP
+		return
+	}
+
+	//set content type to json
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(jsonBytes)
+}
+
+func handleAddTask(w http.ResponseWriter, r *http.Request) {
+	//parse the request body into a new Task struct, assuming incoming as json format
+	var task Task
+	err := json.NewDecoder(r.Body).Decode(&task)
+	if err != nil {
+		//error handling WIP
+		return
+	}
+
+	//add the task to the database
+	err = addTask(task.Description, task.Status, task.UserID)
+	if err != nil {
+		//error handling WIP
+		return
+	}
+
+	//return a success message
+	fmt.Fprint(w, "Task added successfully")
+}
+
+func handleDeleteTask(w http.ResponseWriter, r *http.Request) {
+
+}
+
+func handleUpdateStatus(w http.ResponseWriter, r *http.Request) {
+
 }
