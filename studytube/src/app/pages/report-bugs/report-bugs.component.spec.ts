@@ -17,7 +17,9 @@ describe('ReportBugsComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('should create ReportBugs', async() => {
+    const fixture = TestBed.createComponent(ReportBugsComponent);
+    const rbugs = fixture.componentInstance;
+    expect(rbugs).toBeTruthy();
   });
 });

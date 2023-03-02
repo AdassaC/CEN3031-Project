@@ -9,7 +9,7 @@ import { AuthService } from 'src/app/shared/services/auth';
 })
 export class RegisterComponent {
   constructor(private route: ActivatedRoute, private router: Router, public authService: AuthService) { }
-
+  title = 'register-user';
   goToSignIn(): void {
     this.router.navigate(['./login']);
   }
