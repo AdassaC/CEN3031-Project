@@ -6,8 +6,8 @@ describe('DashboardComponent', () => {
   let component: DashboardComponent;
   let fixture: ComponentFixture<DashboardComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
+  beforeEach(async (() => {
+    TestBed.configureTestingModule({
       declarations: [ DashboardComponent ]
     })
     .compileComponents();
@@ -17,7 +17,22 @@ describe('DashboardComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('should creat Dashboard', () => {
+    const fixture = TestBed.createComponent(DashboardComponent);
+    const dashboard = fixture.debugElement.componentInstance;
+    expect(dashboard).toBeTruthy();
   });
+
+  it(`should have as title 'User Profile'`, async(() => {
+    const fixture = TestBed.createComponent(DashboardComponent);
+    const app = fixture.debugElement.componentInstance;
+    expect(app.title).toEqual('User Profile');
+  }));
+
+  it('should render "title" in a h1 tag', async(() => {
+    const fixture = TestBed.createComponent(DashboardComponent);
+    fixture.detectChanges();
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('h1').textContent).toContain('User Profile');
+  }));
 });
