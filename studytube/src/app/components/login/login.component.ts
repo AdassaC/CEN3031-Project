@@ -7,6 +7,7 @@ import { AuthService } from 'src/app/shared/services/auth';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  //title: 'Sign In';
   constructor(
     public authService: AuthService
   ) { }

@@ -17,7 +17,9 @@ describe('AboutComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('should create About', async() => {
+    const fixture = TestBed.createComponent(AboutComponent);
+    const about = fixture.componentInstance;
+    expect(about).toBeTruthy();
   });
 });

@@ -24,6 +24,7 @@ import { AuthService } from './shared/services/auth';
 import { AboutComponent } from './pages/about/about.component';
 import { HomeComponent } from './pages/home/home.component';
 import { ReportBugsComponent } from './pages/report-bugs/report-bugs.component';
+import { FormsModule} from '@angular/forms';
 import { FooterComponent } from './shared/footer/footer.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -45,8 +46,9 @@ import { SpotifyPlayerComponent } from './components/spotify-player/spotify-play
     ReportBugsComponent,
     FooterComponent,
     NavbarComponent,
-    SpotifyPlayerComponent,
+    SpotifyPlayerComponent
   ],
+
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -56,8 +58,11 @@ import { SpotifyPlayerComponent } from './components/spotify-player/spotify-play
     AngularFireStorageModule,
     AngularFireDatabaseModule,
     BrowserAnimationsModule,
+    FormsModule
   ],
+
   providers: [AuthService],
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }

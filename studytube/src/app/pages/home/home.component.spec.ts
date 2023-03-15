@@ -17,7 +17,9 @@ describe('HomeComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('should create Home', async() => {
+    const fixture = TestBed.createComponent(HomeComponent);
+    const home = fixture.componentInstance;
+    expect(home).toBeTruthy();
   });
 });

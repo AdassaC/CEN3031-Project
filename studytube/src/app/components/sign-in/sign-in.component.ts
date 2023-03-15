@@ -8,6 +8,7 @@ import { AuthService } from 'src/app/shared/services/auth';
   styleUrls: ['./sign-in.component.css']
 })
 export class SignInComponent implements OnInit {
+  title = 'Sign In';
   constructor(
     public authService: AuthService
   ) { }
