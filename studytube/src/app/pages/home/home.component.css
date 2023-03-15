@@ -7,6 +7,7 @@
 2. Allow adding a border to an element by just adding a border-width. (https://github.com/tailwindcss/tailwindcss/pull/116)
 */
 
+
 *,
 ::before,
 ::after {
@@ -33,12 +34,13 @@
 */
 
 .more_info {
-    border-radius: 30px;
-    background: white;
-    width: fit-content;
-    margin: auto;
-    width: 380px;
-    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  font-size: xx-large;
+  border-radius: 30px;
+  background: white;
+  width: fit-content;
+  margin: auto;
+  width: 380px;
+  /*filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))*/
 }
 
 
