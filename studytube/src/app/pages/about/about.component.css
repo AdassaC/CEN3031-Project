@@ -37,6 +37,7 @@
     justify-content: center;
     display: grid;
     gap: 2rem 4rem;
+    height: 1000px;
   }
   @media screen and (min-width: 992px){
     .about-page {
