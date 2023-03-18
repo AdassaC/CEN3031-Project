@@ -4,15 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 // Importing Iframely's embed.js as library.
 //import { iframely } from '@iframely/embed.js';
 
-@Component({
-  selector: 'app-spotify-player',
-  templateUrl: './spotify-player.component.html',
-  styleUrls: ['./spotify-player.component.css']
-})
 
-export class SpotifyPlayerComponent {
-  public srcURL: string = "https://open.spotify.com/embed/playlist/37i9dQZF1DX8NTLI2TtZa6?utm_source=generator&theme=0";
-}
 
 /*getSrcURL() {
   this.srcURL = "https://open.spotify.com/embed/playlist/37i9dQZF1DX8NTLI2TtZa6?utm_source=generator&theme=0";
@@ -57,3 +49,13 @@ export class SpotifyPlayerComponent {
   };
 
 }*/
+
+@Component({
+  selector: 'app-spotify-player',
+  templateUrl: './spotify-player.component.html',
+  styleUrls: ['./spotify-player.component.css']
+})
+
+export class SpotifyPlayerComponent {
+  //public srcURL: string = "https://open.spotify.com/embed/playlist/37i9dQZF1DX8NTLI2TtZa6?utm_source=generator&theme=0";
+}
