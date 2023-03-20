@@ -1,5 +1,4 @@
-<input type="submit" class="button" value="Home" routerLink="/home">
-
+<!--<input type="submit" class="button" value="Home" routerLink="/home">--->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,25 +7,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
 </head>
+
 <body>
-    <div class="wrapper">
-        <h1>Sign Up</h1>
-        <form action="#">
-            <input type="text" placeholder="Email" #userEmail required>
-            <input type="text" placeholder="Name">
-            <input type="password" placeholder="Password" #userPwd required>
-            <input type="password" placeholder="Re-enter Password">
-        </form>
-        <!--
-            <div class="terms">
-            <input type="checkbox" id="checkbox">
-            <label for="checkbox"> I agree to these 
-                <a href="#">Terms & Conditions</a></label>
-        </div>
-        -->
-        <button (click)="authService.SignUp(userEmail.value, userPwd.value)">Sign Up</button>
-        <div class="member">
-            Already a member? <a routerLink="/login">Login</a>
+    <nav>
+        <app-navbar></app-navbar>
+    </nav>
+    <div class="signup_section">
+        <div class="wrapper">
+            <h1>Sign Up</h1>
+            <form action="#">
+                <input type="text" placeholder="Email" #userEmail required>
+                <input type="text" placeholder="Name">
+                <input type="password" placeholder="Password" #userPwd required>
+                <input type="password" placeholder="Re-enter Password">
+            </form>
+            <!--
+                <div class="terms">
+                <input type="checkbox" id="checkbox">
+                <label for="checkbox"> I agree to these 
+                    <a href="#">Terms & Conditions</a></label>
+            </div>
+            -->
+            <button (click)="authService.SignUp(userEmail.value, userPwd.value)">Sign Up</button>
+            <div class="member">
+                Already a member? <a routerLink="/login">Login</a>
+            </div>
         </div>
     </div>
 </body>

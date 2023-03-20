@@ -5,10 +5,19 @@
     box-sizing: border-box;
     font-family: "Poppins", sans-serif;
 }
-body {
+
+body{}
+
+.signup_section{
+    height: 2000px;
     background: #dfe9f5;
+    position: relative;
+    top: 400px;
 }
+
 .wrapper {
+    position: relative;
+    top: 30px;
     width: 330px;
     padding: 2rem 1rem;
     /*margin: 50px auto;*/
