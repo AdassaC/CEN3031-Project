@@ -90,12 +90,29 @@
     color: aliceblue;
 }
 
-.report_bugs_form {
-    background: #6797e4;
+.form_section {
+    margin-top: 290px; 
+    max-width: 1280px; 
+    margin-bottom: 30px;
+}
+
+.report_bugs_form{
+  position: relative;
+  top: 30px;
+  margin-bottom: 100px;
+  width: 500px;
+  padding: 2rem 1rem;
+  /*margin: 50px auto;*/
+  margin: auto;
+  background-color: #718ffbaf;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  /*background: #6797e4;
     width: 100%;
-    border-radius: 30px;
-    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-    
+    border-radius: 30px;*/
+
 }
 @media screen and (min-width: 992px) {
     .report_bugs_form {

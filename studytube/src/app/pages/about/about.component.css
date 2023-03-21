@@ -5,7 +5,7 @@ body{}
   width: fit-content;
   height: 500px;
 }
-.second_div {
+.section {
   position: relative;
   top: 30px;
   margin-bottom: 100px;
