@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<header>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Box Icons-->
+  <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+  <!-- CSS -->
+  <link rel="stylesheet" href="playlist-generator.component.css">
+  <title>Playlist Generator</title>
+</header>
+<app-navbar></app-navbar>
+<body></body>
+    <section class="playlistGenerator">
+        <div >
+            <form [formGroup]="playlistForm" (ngSubmit)="onSubmit()">
+                <h2>Create a Playlist</h2>
+                <label for="playlist-name">PLAYLIST NAME </label>
+                <input id="playlist-name" type="playlistName" placeholder= "''My New Playlist''" formControlName="playlistName">
+
+                <label for="songNumber">MAX NUMBER OF SONGS </label>
+                <input id="songNumber" type="songNumber" placeholder= "" formControlName="numberOfSongs">
+
+                <!--<label for="songNumber">GENRES: </label>
+                <input id="songNumber" type="text" formControlName="numberOfSongs">-->
+
+                <!--GENRES FROM USER INPUT-->
+                <div formArrayName="genres">
+                    
+                    <div class = "form-row">
+                        <button type="button" (click)="addUserGenres()">+ Add a Genre</button>
+
+                        <div *ngFor="let genre of userGenres.controls; let i=index">
+                            <!-- The repeated genres template -->
+                            <!--<label for="genre-{{ i }}">GENRE</label>-->
+                            <input class="genre" id="genre-{{ i }}" type="text" placeholder="Choose a genre..." [formControlName]="i">
+                        </div>
+                    </div>
+
+                </div>
+
+                <button class="submit" type="submit" (click) = "onSubmit()" [disabled]="!playlistForm.valid">Generate Playlist</button>
+            </form>
+        </div>
+    </section>
+</html>
+
+<!--<p>Complete the form to enable button.</p>--->
