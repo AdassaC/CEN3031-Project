@@ -1,5 +1,11 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { ReactiveFormsModule } from '@angular/forms';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {MatButtonModule} from '@angular/material/button';
+import {MatChipsModule} from '@angular/material/chips';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -20,7 +26,6 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
 import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
 import { AuthService } from './shared/services/auth';
 
-// Report bugs routing
 import { AboutComponent } from './pages/about/about.component';
 import { HomeComponent } from './pages/home/home.component';
 import { ReportBugsComponent } from './pages/report-bugs/report-bugs.component';
@@ -30,6 +35,7 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SpotifyPlayerComponent } from './components/spotify-player/spotify-player.component';
 import { TodoComponent } from './components/todo/todo.component';
+import { PlaylistGeneratorComponent } from './components/playlist-generator/playlist-generator.component';
 
 
 @NgModule({
@@ -48,7 +54,8 @@ import { TodoComponent } from './components/todo/todo.component';
     FooterComponent,
     NavbarComponent,
     SpotifyPlayerComponent,
-    TodoComponent
+    TodoComponent,
+    PlaylistGeneratorComponent
   ],
 
   imports: [
@@ -60,7 +67,12 @@ import { TodoComponent } from './components/todo/todo.component';
     AngularFireStorageModule,
     AngularFireDatabaseModule,
     BrowserAnimationsModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatChipsModule
   ],
 
   providers: [AuthService],
