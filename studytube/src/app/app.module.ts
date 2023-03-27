@@ -34,6 +34,7 @@ import { FooterComponent } from './shared/footer/footer.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 //import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SpotifyPlayerComponent } from './components/spotify-player/spotify-player.component';
+import { HttpClientModule } from '@angular/common/http';
 import { TaskViewComponent } from './tasksManager/task-view/task-view.component';
 import { NewListComponent } from './tasksManager/new-list/new-list.component';
 import { TodoComponent } from './components/todo/todo.component';
@@ -76,6 +77,7 @@ import { SettingsComponent } from './components/settings/settings.component';
     AngularFireDatabaseModule,
    // BrowserAnimationsModule,
     FormsModule,
+    HttpClientModule,
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
