@@ -8,10 +8,9 @@ import (
 	"net/url"
 	"os"
 
-	"github.com/adassacoimin/CEN3031-Project/studytube/src/server/utils"
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
-	"github.com/rs/cors"
+	
 )
 
 func main() {
