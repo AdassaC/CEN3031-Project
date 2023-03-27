@@ -29,6 +29,7 @@ import { FooterComponent } from './shared/footer/footer.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 //import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SpotifyPlayerComponent } from './components/spotify-player/spotify-player.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -58,7 +59,8 @@ import { SpotifyPlayerComponent } from './components/spotify-player/spotify-play
     AngularFireStorageModule,
     AngularFireDatabaseModule,
    // BrowserAnimationsModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
 
   providers: [AuthService],
