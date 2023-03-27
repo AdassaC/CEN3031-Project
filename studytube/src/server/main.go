@@ -15,6 +15,7 @@ import (
 
 func main() {
 
+	fmt.Print("inside of main.go")
 	host := "127.0.0.1:8081"
 	if err := http.ListenAndServe(host, httpHandler()); err != nil {
 		log.Fatalf("Failed to listen on %s: %v", host, err)
