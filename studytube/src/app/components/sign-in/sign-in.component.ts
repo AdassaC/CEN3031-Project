@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AuthService } from 'src/app/shared/services/auth';
+import { Book, SignInService } from 'src/app/sign-in.service';
+
 
 
 @Component({
@@ -7,10 +9,29 @@ import { AuthService } from 'src/app/shared/services/auth';
   templateUrl: './sign-in.component.html',
   styleUrls: ['./sign-in.component.css']
 })
-export class SignInComponent implements OnInit {
-  title = 'Sign In';
+export class SignInComponent {
+  public books: Book[] = [];
+  
   constructor(
-    public authService: AuthService
-  ) { }
-  ngOnInit() { }
+    public authService: AuthService,
+    private bookService: SignInService, 
+  ) {
+    //this.books = bookService.getBooks();
+    this.bookService.getBooks().subscribe(res => {
+      this.books = res; 
+    })
+   }
+
+  addBook(title: string, author: string) {
+    this.bookService.addBook(title, author);
+    /*
+      .then(
+      this.books => {
+        this.books = books;
+      }, err => {
+        
+      }
+    )
+    */
+  }
 }
