@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"strconv"
 
 	"github.com/adassacoimin/CEN3031-Project/studytube/src/server/utils"
 	"github.com/gorilla/mux"
@@ -32,6 +33,9 @@ func main() {
 	//routing for retrieving taskList and addTask
 	r.HandleFunc("/tasks/{userID}", handleGetTasksByUserID).Methods("GET")
 	r.HandleFunc("/tasks", handleAddTask).Methods("POST")
+	r.HandleFunc("/tasks/status", handleUpdateStatus).Methods("PUT")
+	r.HandleFunc("/tasks/delete", handleDeleteTask).Methods("DELETE")
+	r.HandleFunc("/tasks/description", handleGetTaskByDescriptionAndUserID).Methods("GET")
 
 	// Solves Cross Origin Access Issue
 	c := cors.New(cors.Options{
@@ -154,6 +158,36 @@ func getTasksByUserID(userID string) ([]Task, error) {
 	return tasks, nil
 }
 
+// find by description and userID
+func getTaskByDescriptionAndUserID(description string, userID int) ([]Task, error) {
+	//connect to MongoDB on localhost port 27017
+	client, err := mongo.Connect(context.Background(), options.Client().ApplyURI("mongodb://localhost:27017"))
+	if err != nil {
+		return nil, fmt.Errorf("Error connecting to MongoDB: %v", err)
+	}
+	defer client.Disconnect(context.Background())
+
+	//get a handle to the tasks collection
+	collection := client.Database("CEN3031_Test").Collection("TestStructure")
+
+	//find all tasks with the given userID and description
+	filter := bson.M{"userid": userID, "description": description}
+	cursor, err := collection.Find(context.Background(), filter)
+	if err != nil {
+		return nil, fmt.Errorf("Error finding tasks in database: %v", err)
+	}
+	defer cursor.Close(context.Background())
+
+	//decode the cursor into a slice of Task objects
+	var tasks []Task
+	err = cursor.All(context.Background(), &tasks)
+	if err != nil {
+		return nil, fmt.Errorf("Error decoding tasks from database: %v", err)
+	}
+
+	return tasks, nil
+}
+
 func addTask(description, status, userID string) error {
 	//create new Task struct with string arguments
 	task := Task{
@@ -233,6 +267,7 @@ func updateTaskStatus(description string, newStatus string) error {
 }
 
 // Handler Funcs
+
 func handleGetTasksByUserID(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	userID := vars["userID"]
@@ -241,13 +276,15 @@ func handleGetTasksByUserID(w http.ResponseWriter, r *http.Request) {
 	tasks, err := getTasksByUserID(userID)
 	if err != nil {
 		//error handling WIP
+		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
 
-	//put task into format for transfer
+	//put task into JSON for transfer
 	jsonBytes, err := utils.StructToJSON(tasks)
 	if err != nil {
 		//error handling WIP
+		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
 
@@ -262,6 +299,7 @@ func handleAddTask(w http.ResponseWriter, r *http.Request) {
 	err := json.NewDecoder(r.Body).Decode(&task)
 	if err != nil {
 		//error handling WIP
+		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
 
@@ -269,6 +307,7 @@ func handleAddTask(w http.ResponseWriter, r *http.Request) {
 	err = addTask(task.Description, task.Status, task.UserID)
 	if err != nil {
 		//error handling WIP
+		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
 
@@ -277,9 +316,70 @@ func handleAddTask(w http.ResponseWriter, r *http.Request) {
 }
 
 func handleDeleteTask(w http.ResponseWriter, r *http.Request) {
+	//get the description of the task to delete from the URL query parameter
+	description := r.URL.Query().Get("description")
+	if description == "" {
+		http.Error(w, "Missing description parameter", http.StatusBadRequest)
+		return
+	}
 
+	//call the deleteTask function to delete the task from the database
+	err := deleteTask(description)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	//return a success message to the client
+	fmt.Fprintf(w, "Task deleted successfully")
 }
 
 func handleUpdateStatus(w http.ResponseWriter, r *http.Request) {
+	//parse the request body to get the description and new status values
+	var requestBody struct {
+		Description string `json:"description"`
+		NewStatus   string `json:"new_status"`
+	}
+	err := json.NewDecoder(r.Body).Decode(&requestBody)
+	if err != nil {
+		http.Error(w, "Invalid request body", http.StatusBadRequest)
+		return
+	}
 
+	//call the updateTaskStatus function to update the task status in the database
+	err = updateTaskStatus(requestBody.Description, requestBody.NewStatus)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	//return a success message to the client
+	fmt.Fprintf(w, "Task status updated successfully")
+}
+
+func handleGetTaskByDescriptionAndUserID(w http.ResponseWriter, r *http.Request) {
+	//get the description and userID from the request parameters
+	description := r.URL.Query().Get("description")
+	userIDStr := r.URL.Query().Get("userID")
+	userID, err := strconv.Atoi(userIDStr)
+	if err != nil {
+		http.Error(w, "Invalid userID", http.StatusBadRequest)
+		return
+	}
+
+	//call the getTaskByDescriptionAndUserID function
+	tasks, err := getTaskByDescriptionAndUserID(description, userID)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	//encode the tasks as JSON and write to the response
+	jsonData, err := json.Marshal(tasks)
+	if err != nil {
+		http.Error(w, "Error encoding tasks to JSON", http.StatusInternalServerError)
+		return
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(jsonData)
 }
