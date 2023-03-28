@@ -29,7 +29,8 @@ import { FooterComponent } from './shared/footer/footer.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SpotifyPlayerComponent } from './components/spotify-player/spotify-player.component';
-
+import { SpotifyComponent } from './components/spotify/spotify.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { SpotifyPlayerComponent } from './components/spotify-player/spotify-play
     ReportBugsComponent,
     FooterComponent,
     NavbarComponent,
-    SpotifyPlayerComponent
+    SpotifyPlayerComponent,
+    SpotifyComponent
   ],
 
   imports: [
@@ -58,7 +60,8 @@ import { SpotifyPlayerComponent } from './components/spotify-player/spotify-play
     AngularFireStorageModule,
     AngularFireDatabaseModule,
     BrowserAnimationsModule,
-    FormsModule
+    FormsModule, 
+    HttpClientModule
   ],
 
   providers: [AuthService],
