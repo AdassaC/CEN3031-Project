@@ -30,7 +30,8 @@ export class SignInService {
   }
 
   getBooks():  Observable<Book[]> {  
-    return this.http.get<Book[]>(this.api);
+    console.log("inside service getBooks");
+    return this.http.get<Book[]>("/books");
   }
 
   add(book : Book) { //(title: string, author: string) { //addBook(book : Book) {

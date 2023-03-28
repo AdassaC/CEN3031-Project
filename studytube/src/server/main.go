@@ -30,6 +30,7 @@ func httpHandler() http.Handler {
 	// Your REST API requests go here
 
 	router.HandleFunc("/books/{title}/page/{page}", handleBookGet).Methods("GET")
+	router.HandleFunc("/books", handleBookPost).Methods("POST");
 
 	// Add your routes here.
 	// WARNING: this route must be the last route defined.
@@ -65,6 +66,11 @@ func handleBookGet(w http.ResponseWriter, r *http.Request) {
 
 	fmt.Fprintf(w, "You've requested the book: %s on page %s\n", title, page)
 }
+
+func handleBookPost(w http.ResponseWriter, r *http.Request) {
+	fmt.Print("You are inside of the handleBookPost method");
+}
+
 
 func getOrigin() *url.URL {
 	origin, _ := url.Parse("http://localhost:4200")

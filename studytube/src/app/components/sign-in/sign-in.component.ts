@@ -38,9 +38,13 @@ private count = 0;
    addBook() {    //(title: string, author: string) {
     console.log('inside of addBook')
     //this.bookService.addBook(title, author);
-    this.books = this.bookService.add({
-      title:  `Harry Potter ${this.count}`,
-      author: 'Ana Maria'
+        /*this.books = this.bookService.add({
+          title:  `Harry Potter ${this.count}`,
+          author: 'Ana Maria'
+        }) */
+    this.bookService.addBook({
+        title:  `Harry Potter ${this.count}`,
+        author: 'Ana Maria'
     })
     this.count++; 
     /*
