@@ -30,6 +30,7 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
 //import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SpotifyPlayerComponent } from './components/spotify-player/spotify-player.component';
 import { HttpClientModule } from '@angular/common/http';
+import { SpotifyComponent } from './components/spotify/spotify.component';
 
 
 @NgModule({
@@ -47,7 +48,8 @@ import { HttpClientModule } from '@angular/common/http';
     ReportBugsComponent,
     FooterComponent,
     NavbarComponent,
-    SpotifyPlayerComponent
+    SpotifyPlayerComponent,
+    SpotifyComponent
   ],
 
   imports: [
