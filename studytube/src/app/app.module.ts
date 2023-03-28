@@ -35,6 +35,7 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
 //import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SpotifyPlayerComponent } from './components/spotify-player/spotify-player.component';
 import { HttpClientModule } from '@angular/common/http';
+import { SpotifyComponent } from './components/spotify/spotify.component';
 import { TaskViewComponent } from './tasksManager/task-view/task-view.component';
 import { NewListComponent } from './tasksManager/new-list/new-list.component';
 import { TodoComponent } from './components/todo/todo.component';
@@ -59,6 +60,7 @@ import { SettingsComponent } from './components/settings/settings.component';
     FooterComponent,
     NavbarComponent,
     SpotifyPlayerComponent,
+    SpotifyComponent,
     TaskViewComponent,
     NewListComponent,
     TodoComponent,
