@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Track, SpotifyService } from 'src/app/spotify.service';
+import { Track, SpotifyService, PlayList } from 'src/app/spotify.service';
 
 
 @Component({
@@ -9,6 +9,7 @@ import { Track, SpotifyService } from 'src/app/spotify.service';
 })
 export class SpotifyComponent {
     public tracks: Track[] = []; 
+    public playlist: PlayList[] = []; 
 
     constructor(
       private spotifyService: SpotifyService, 
@@ -16,24 +17,39 @@ export class SpotifyComponent {
       //this.tracks = bookService.get();
      }
 
-     addTrackPlaylist() {
-
+     addTrackPlaylist(songName: string, artistName: string, urlName: string, playlistName: string) {
+        this.spotifyService.addTrackToPlaylist({
+              title: songName,
+              artist: artistName, 
+              url: urlName,
+        }, playlistName)
      }
 
-     removeTrackPlaylist() {
-
+     removeTrackPlaylist(songName: string, artistName: string, urlName: string, playlistName: string) {
+        this.spotifyService.removeTrackFromPlaylist({
+          title: songName,
+          artist: artistName, 
+          url: urlName,
+        }, playlistName)
      }
 
-     updateTrackPlaylist() {
-
+     updateTrackPlaylist(songName: string, artistName: string, urlName: string, playlistName: string, updatedSongName: string, updatedArtistName: string, updatedURL: string) {
+        this.spotifyService.updateTrackOnPlaylist({
+          title: songName,
+          artist: artistName, 
+          url: urlName,
+        }, playlistName,
+        updatedSongName, updatedArtistName, updatedURL)
      }
 
-     createPlaylist() {
-
+     createPlaylist(playlistName: string) {
+      this.spotifyService.createPlaylist(playlistName);
      }
 
-     getPlaylist() {
-      
+     getPlaylist(playlistName: string) {
+        this.spotifyService.getPlaylist(playlistName).subscribe(res => {
+          this.playlist = res; 
+        });
      }
 
 }

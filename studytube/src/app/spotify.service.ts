@@ -2,6 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
+export interface PlayList {
+  playlistTitle: string; 
+}
+
 export interface Track {
   title: string; 
   artist: string; 
@@ -27,7 +31,7 @@ export class SpotifyService {
 
   }
 
-  updateTrackOnPlaylist(track: Track, playlistName: string, newSongName: string, newArtistName: string, updatedURL: string) {
+  updateTrackOnPlaylist(track: Track, playlistName: string, newSongName: string, newArtistName: string, newURL: string) {
 
   }
 
