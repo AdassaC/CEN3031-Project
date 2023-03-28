@@ -25,6 +25,12 @@ private count = 0;
       //})
    }
 
+   getAllBooks() {
+      this.bookService.getBooks().subscribe(res => {
+        this.books = res; 
+      });
+   }
+
    // need to make sure this works with paramaters
    // so the front end can input information and add it to the database 
   addBookTwo(TitleName: string, AuthorName: string) { 

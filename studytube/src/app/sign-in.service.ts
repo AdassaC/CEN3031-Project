@@ -22,13 +22,13 @@ export class SignInService {
     author: "Testeee"
   }]
 
-  api: string = 'https://jsonplaceholder.typicode.com/posts';
+  api: string = 'http://localhost:4201/';
   constructor(private http: HttpClient) {}
 
   addBook(book : Book) {
     console.log("inside of the addBook in service");
     console.log(book);
-    return this.http.post<Book>(this.api + "books", book)
+    return this.http.post(this.api + "books", book)  //<Book>(this.api + "books", book)
     .subscribe((res) => {
       console.log(res);
     });
@@ -36,7 +36,8 @@ export class SignInService {
 
   getBooks():  Observable<Book[]> {  
     console.log("inside service getBooks");
-    return this.http.get<Book[]>("/books");
+    //return this.http.get<Book[]>(this.api + "books");
+    return this.http.get<Book[]>(this.api + "books/{HarryPotter}/page/{20}");
   }
 
   add(book : Book) { //(title: string, author: string) { //addBook(book : Book) {
