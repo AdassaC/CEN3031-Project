@@ -17,6 +17,11 @@ func main() {
 	r.HandleFunc("/hello-world", helloWorld)
 
 	// Spotify helper functions in Go 
+	r.HandleFunc("/addplaylist/{playlistName}/title/{songName}/artist/{artist}/trackURL/{url}", addTrackToPlaylist)
+	r.HandleFunc("/removetrack/{playlistName}/title/{songName}/artist/{artist}", removeTrackFromPlaylist)
+	r.HandleFunc("/updatetrack/{playlistName}/title/{songName}/artist/{artist}/newSong/{newSongName}/newArtist/{newArtistName}/newURL/{updatedURL}", updateTrackOnPlaylist)
+	r.HandleFunc("/createPlaylist/{playlistName}", createPlaylist)
+	r.HandleFunc("/getPlaylist/{playlistName}", getPlaylist)
 
 	// Solves Cross Origin Access Issue
 	c := cors.New(cors.Options{
