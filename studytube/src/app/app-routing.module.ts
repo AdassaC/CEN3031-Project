@@ -16,6 +16,9 @@ import { AboutComponent } from './pages/about/about.component';
 import { ReportBugsComponent } from './pages/report-bugs/report-bugs.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { FooterComponent } from './shared/footer/footer.component';
+import { SettingsComponent } from './components/settings/settings.component';
+import { ListsComponent } from './components/lists/lists.component';
+import { TodoComponent } from './components/todo/todo.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -34,7 +37,11 @@ const routes: Routes = [
   { path: 'report-bugs', component: ReportBugsComponent},
 
   { path: 'navbar', component: NavbarComponent},
-  { path: 'footer', component: FooterComponent}
+  { path: 'footer', component: FooterComponent},
+
+  { path: 'lists', component: ListsComponent},
+  { path: 'todo', component: TodoComponent},
+  { path: 'settings', component: SettingsComponent}
   //Gonna have to change to include user id in path
 ];
 
