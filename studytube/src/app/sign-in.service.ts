@@ -26,7 +26,8 @@ export class SignInService {
   constructor(private http: HttpClient) {}
 
   addBook(book : Book) {
-    return this.http.post<Book>("/books", book)
+    console.log("inside of the addBook in service");
+    return this.http.post<Book>("/books", book);
   }
 
   getBooks():  Observable<Book[]> {  
