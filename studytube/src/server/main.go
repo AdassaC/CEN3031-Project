@@ -16,6 +16,8 @@ func main() {
 
 	r.HandleFunc("/hello-world", helloWorld)
 
+	// Spotify helper functions in Go 
+
 	// Solves Cross Origin Access Issue
 	c := cors.New(cors.Options{
 		AllowedOrigins: []string{"http://localhost:4200"},
@@ -45,4 +47,24 @@ func helloWorld(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(jsonBytes)
 	return
+}
+
+func addTrackToPlaylist(w http.ResponseWriter, r *http.Request) {
+
+}
+
+func removeTrackFromPlaylist(w http.ResponseWriter, r *http.Request) {
+
+}
+
+func updateTrackOnPlaylist(w http.ResponseWriter, r *http.Request) {
+
+}
+
+func createPlaylist(w http.ResponseWriter, r *http.Request) {
+
+}
+
+func getPlaylist(w http.ResponseWriter, r *http.Request) {
+
 }
