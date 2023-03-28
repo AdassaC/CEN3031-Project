@@ -1,3 +1,13 @@
-<div>
-  Books works 
-</div>
+
+<form action="/action_page.php">
+  <label for="titleName">Title:</label><br>
+  <input type="text" id="titleName" name="titleName" value="Star Wars"><br>
+  <label for="authorName">Author:</label><br>
+  <input type="text" id="authorName" name="authorName" value="Cameron Santiago"><br><br>
+  <button (click)="addBook()"> Click me </button>
+</form>
+<p
+  *ngFor="let book of books"
+>
+{{book.title}} {{book.author}}
+</p>
