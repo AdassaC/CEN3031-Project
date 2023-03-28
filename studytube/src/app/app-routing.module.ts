@@ -16,6 +16,7 @@ import { AboutComponent } from './pages/about/about.component';
 import { ReportBugsComponent } from './pages/report-bugs/report-bugs.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { FooterComponent } from './shared/footer/footer.component';
+import { TaskViewComponent } from './tasksManager/task-view/task-view.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { ListsComponent } from './components/lists/lists.component';
 import { TodoComponent } from './components/todo/todo.component';
@@ -35,6 +36,7 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent},
   { path: 'about', component: AboutComponent},
   { path: 'report-bugs', component: ReportBugsComponent},
+  { path: 'view-tasks', component: TaskViewComponent},
 
   { path: 'navbar', component: NavbarComponent},
   { path: 'footer', component: FooterComponent},
