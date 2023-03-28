@@ -27,7 +27,11 @@ export class SignInService {
 
   addBook(book : Book) {
     console.log("inside of the addBook in service");
-    return this.http.post<Book>("/books", book);
+    console.log(book);
+    return this.http.post<Book>(this.api + "books", book)
+    .subscribe((res) => {
+      console.log(res);
+    });
   }
 
   getBooks():  Observable<Book[]> {  
