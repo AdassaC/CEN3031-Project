@@ -36,7 +36,7 @@ export class SpotifyService {
   }
 
   createPlaylist(playlistName: string) {
-    return this.http.post(this.api + "books", track)  //<Book>(this.api + "books", book)
+    return this.http.post(this.api + "books", playlistName)  //<Book>(this.api + "books", book)
     .subscribe((res) => {
       console.log(res);
     });

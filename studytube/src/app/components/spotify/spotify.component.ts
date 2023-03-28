@@ -16,6 +16,9 @@ export class SpotifyComponent {
     ) {
       //this.tracks = bookService.get();
      }
+     getValues(val: string) {
+      console.warn(val)
+     }
 
      addTrackPlaylist(songName: string, artistName: string, urlName: string, playlistName: string) {
         this.spotifyService.addTrackToPlaylist({
@@ -47,9 +50,9 @@ export class SpotifyComponent {
      }
 
      getPlaylist(playlistName: string) {
-        this.spotifyService.getPlaylist(playlistName).subscribe(res => {
+        /*this.spotifyService.getPlaylist(playlistName).subscribe(res => {
           this.playlist = res; 
-        });
+        });*/
      }
 
 }
