@@ -5,6 +5,7 @@
   <label for="authorName">Author:</label><br>
   <input type="text" id="authorName" name="authorName" value="Cameron Santiago"><br><br>
   <button (click)="addBook()"> Click me </button>
+  <button (click)="getAllBooks()"> Get the Books </button>
 </form>
 <p
   *ngFor="let book of books"

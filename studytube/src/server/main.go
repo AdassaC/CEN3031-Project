@@ -1,20 +1,20 @@
 package main
 
 import (
-	"encoding/json"
+	//"encoding/json"
 	"fmt"
-	//"log"
-	"math/rand"
+	"log"
+	//"math/rand"
 	"net/http"
 	"net/http/httputil"
 	"net/url"
-	//"os"
-	"strconv"
+	"os"
+	//"strconv"
 
-	//"github.com/gorilla/handlers"
+	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 )
-
+/*
 type Post struct {
 	ID string `json:"id"`
 	Title string `json:"title"`
@@ -71,6 +71,17 @@ type Post struct {
 	}
 	json.NewEncoder(w).Encode(posts)
   }
+
+  func handleBookPost(w http.ResponseWriter, r *http.Request) {
+	fmt.Print("You are inside of the handleBookPost method");
+
+	vars := mux.Vars(r)
+	title := vars["title"]
+	page := vars["page"]
+
+	fmt.Fprintf(w, "You've attempted to post the book: %s on page %s\n", title, page)
+   } 
+
   func main() {
 	fmt.Print("inside of main")
 	router := mux.NewRouter()
@@ -81,26 +92,29 @@ type Post struct {
 	router.HandleFunc("/posts/{id}", updatePost).Methods("PUT")
 	router.HandleFunc("/posts/{id}", deletePost).Methods("DELETE")
 
+	//router.HandleFunc("/booksPost/{title}/page/{page}", handleBookPost).Methods("POST");
+	router.HandleFunc("/books", handleBookPost).Methods("POST");
 	// Spotify Handler 
-	router.HandleFunc("/songs", getSongs).Methods("GET")
-	router.HandleFunc("/song/{song}", getSong).Methods("GET")
-	router.HandleFunc("/playlists", getPlaylists).Methods("GET")
-	router.HandleFunc("/playlist{playlist}", getPlaylist).Methods("GET")
+	//router.HandleFunc("/songs", getSongs).Methods("GET")
+	//router.HandleFunc("/song/{song}", getSong).Methods("GET")
+	//router.HandleFunc("/playlists", getPlaylists).Methods("GET")
+	//router.HandleFunc("/playlist{playlist}", getPlaylist).Methods("GET")
 
-	router.HandleFunc("/playlist{playlist}", createPlaylist).Methods("POST")
+	//router.HandleFunc("/playlist{playlist}", createPlaylist).Methods("POST")
 	// need more parameters and put info onto google doc sheet 
 
 
-  http.ListenAndServe(":8000", router)
+  http.ListenAndServe(":4201", router)
   }
+  */
 
 
 
-/*
 func main() {
 
 	fmt.Print("inside of main.go")
-	host := "127.0.0.1:4021" // may be 4020
+	host := "127.0.0.1:4201" // may be 4201
+	//host := "http://localhost:4201"
 	if err := http.ListenAndServe(host, httpHandler()); err != nil {
 		fmt.Print("Failed to listen to " + host)
 		log.Fatalf("Failed to listen on %s: %v", host, err)
@@ -120,8 +134,9 @@ func httpHandler() http.Handler {
 
 	router.HandleFunc("/books/{title}/page/{page}", handleBookGet).Methods("GET")
 	router.HandleFunc("/books", handleBooksGet).Methods("GET");
-	router.HandleFunc("/booksPost/{title}/page/{page}", handleBookPost).Methods("POST");
-	router.HandleFunc("/test", test)
+		//router.HandleFunc("/booksPost/{title}/page/{page}", handleBookPost).Methods("POST");
+	router.HandleFunc("/books", handleBookPost).Methods("POST");
+		//router.HandleFunc("/test", test)
 	
 	// Add your routes here.
 	// WARNING: this route must be the last route defined.
@@ -136,7 +151,7 @@ func httpHandler() http.Handler {
 				"DNT", "Keep-Alive", "User-Agent", "X-Requested-With", "If-Modified-Since",
 				"Cache-Control", "Content-Range", "Range"}),
 			handlers.AllowedMethods([]string{"GET", "POST", "PUT", "HEAD", "OPTIONS"}),
-			handlers.AllowedOrigins([]string{"http://localhost:8080"}),
+			handlers.AllowedOrigins([]string{"http://localhost:4200"}), // maybe should be 4020???
 			handlers.ExposedHeaders([]string{"DNT", "Keep-Alive", "User-Agent",
 				"X-Requested-With", "If-Modified-Since", "Cache-Control",
 				"Content-Type", "Content-Range", "Range", "Content-Disposition"}),
@@ -171,10 +186,6 @@ func handleBookPost(w http.ResponseWriter, r *http.Request) {
 
 	fmt.Fprintf(w, "You've attempted to post the book: %s on page %s\n", title, page)
 } 
-*/
-
-
-
 
 
 
