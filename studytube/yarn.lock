@@ -3722,6 +3722,11 @@ builtins@^5.0.0:
   dependencies:
     semver "^7.0.0"
 
+bulma@^0.9.4:
+  version "0.9.4"
+  resolved "https://registry.npmjs.org/bulma/-/bulma-0.9.4.tgz"
+  integrity sha512-86FlT5+1GrsgKbPLRRY7cGDg8fsJiP/jzTqXXVqiUZZ2aZT8uemEOHlU1CDU+TxklPEZ11HZNNWclRBBecP4CQ==
+
 bytes@3.0.0:
   version "3.0.0"
   resolved "https://registry.npmjs.org/bytes/-/bytes-3.0.0.tgz"
