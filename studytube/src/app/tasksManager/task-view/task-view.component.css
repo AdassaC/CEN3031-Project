@@ -3,14 +3,17 @@
 /*Import fonts*/
 @import url('https://fonts.googleapis.com/css?family=Lato:400,700|Nunito:400,700');
 @import url('http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400&display=swap');
+@import url('~bulma/css/bulma.css');
 
 html{
-    background: linear-gradient(to right top, #44ddd0, #34625f);
+    background: linear-gradient(to right top, #ffffff, #34625f);
 }
 
 html, body {
     height: 100%;
-    background: linear-gradient(to right top, #44ddd0, #34625f);
+    background: linear-gradient(to right top, #ffffff, #003d73);
 }
 
 .centered-content {
@@ -34,27 +37,32 @@ html, body {
     display: flex;
     flex-direction: column;
     width: 250px;
-    background: rgb(184, 216, 225);
+    background: rgba(177, 216, 255, 0.703);
     padding: 42px;
     border-top-left-radius: 8px ;
     border-bottom-left-radius: 8px;
 }
 
 .task-list {
-    background:rgb(161, 184, 191);
+    background:rgb(255, 255, 255);
     display: flex;
+    flex-direction: column;
     flex-grow: 1;
     padding: 40px;
+    position: relative;
 
     border-top-right-radius: 8px ;
     border-bottom-right-radius: 8px;
 }
 
 .title {
-    font-family: 'Futura';
+    font-family: 'Montserrat';
+    font-weight: bold;
     font-size: 24px;
-    /*text-transform: uppercase;*/
+    text-transform: uppercase;
     letter-spacing: 2px;
+    color: #060b79;
+    text-align: initial;
 }
 
 .list-menu{
@@ -75,15 +83,64 @@ html, body {
 }
 
 .list-menu-item:hover{
-    background: lightblue;
+    background: rgb(191, 219, 239);
 }
 
 .list-menu-item:active {
-    background-color: rgb(5, 154, 154);
-    color: darkblue;
+    background-color: #18368a;
+    color: rgb(255, 255, 255);
+}
+
+button {
+    background-color: #18368a;
+}
+button.button.is-primary:hover{
+    background-color: rgba(31, 65, 159, 0.344);
+}
+
+.button.is-primary {
+    background-color: #18368a;
+    font-family: Montserrat;
+}
+
+.task {
+    background: white;
+    padding: 15px 20px;
+    border-radius: 5px;
+    margin-top: 10px;
+    text-align: initial;
+}
+
+.task:hover:not(.task.complete){
+    box-shadow: 0 0 0 5px #eeee;
+}
+
+.task:active:not(.task.complete) {
+    transform: scale(.95);
+    cursor: pointer;
+    transition: box shadow .2s ease, transform .2s ease;
 }
 
 
+.task.complete {
+    text-decoration: line-through;
+    opacity: 70%;
+}
+
+.circle-add-button {
+    height: 45px;
+    width: 45px;
+    background: #18368a;
+    position: absolute;
+    bottom: 35px;
+    right: 35px;
+    /*border: none;
+    border-radius: %;*/
+}
+.circle-add-button-text {
+    color: white;
+    font-size: 24px;
+}
 
 
 
