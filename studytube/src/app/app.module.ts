@@ -30,6 +30,7 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SpotifyPlayerComponent } from './components/spotify-player/spotify-player.component';
 import { TaskViewComponent } from './tasksManager/task-view/task-view.component';
+import { NewListComponent } from './tasksManager/new-list/new-list.component';
 
 
 @NgModule({
@@ -48,7 +49,8 @@ import { TaskViewComponent } from './tasksManager/task-view/task-view.component'
     FooterComponent,
     NavbarComponent,
     SpotifyPlayerComponent,
-    TaskViewComponent
+    TaskViewComponent,
+    NewListComponent
   ],
 
   imports: [
