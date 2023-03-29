@@ -383,3 +383,272 @@ func handleGetTaskByDescriptionAndUserID(w http.ResponseWriter, r *http.Request)
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(jsonData)
 }
+
+func addPlaylist(playlistName string, songs [100]Song, userID string) error {
+    playlist := Playlist{
+        PlaylistName: playlistName,
+        Songs:        songs,
+        UserID:       userID,
+    }
+    //
+    //connect to MongoDB on localhost port 27017
+    client, err := mongo.Connect(context.TODO(), options.Client().ApplyURI("mongodb://localhost:27017"))
+    if err != nil {
+        return fmt.Errorf("Error connecting to MongoDB: %v", err)
+    }
+    defer client.Disconnect(context.TODO())
+
+    //get a handle to the tasks collection
+    collection := client.Database("CEN3031_Test").Collection("SongStructure")
+
+    _, err = collection.InsertOne(context.TODO(), playlist)
+    if err != nil {
+        return fmt.Errorf("Error adding task to task list: %v", err)
+    }
+
+    return nil
+}
+
+func addSongToSpotifyPlaylist(playlistName string, songs [100]Song, userID string) error {
+    //create new Song  struct with string arguments
+    // song := Song{
+    //  Song:   songName,
+    //  Artist: artistName,
+    //  url:    trackURL,
+    //  UserID: userID,
+    // }
+    // playlist := Playlist{
+    //  PlaylistName: playlistName,
+    //  Songs:        songs,
+    //  UserID:       userID,
+    // }
+
+    //connect to MongoDB on localhost port 27017
+    client, err := mongo.Connect(context.TODO(), options.Client().ApplyURI("mongodb://localhost:27017"))
+    if err != nil {
+        return fmt.Errorf("Error connecting to MongoDB: %v", err)
+    }
+    defer client.Disconnect(context.TODO())
+
+    //get a handle to the tasks collection
+    collection := client.Database("CEN3031_Test").Collection("SongStructure")
+
+    //find all tasks with the given userID and description
+    filter := bson.M{"playlist": playlistName}
+    cursor, err := collection.Find(context.Background(), filter)
+
+    if err != nil {
+        return fmt.Errorf("Cursor found nothing: %v", err)
+    }
+
+    // fmt.Printf(cursor.Current.String())
+
+    defer cursor.Close(context.TODO())
+
+    //decode the cursor into a slice of Task objects
+    var playlist []Playlist
+    err = cursor.All(context.Background(), &playlist)
+
+    theSongs := playlist[0].Songs
+
+    if len(playlist) == 0 {
+        fmt.Printf("0 Size")
+    } else {
+        fmt.Printf("Not of size 0\n,")
+    }
+    for i := 0; i < len(theSongs); i++ {
+        if theSongs[i].Artist != "" {
+            theSongs[i+1].Artist = songs[0].Artist
+            theSongs[i+1].Song = songs[0].Song
+            break
+        }
+    }
+    //fmt.Printf(theSongs[1].Artist)
+
+    //update the task status in the database
+    status := bson.M{"playlist": playlistName}
+    update := bson.M{"$set": bson.M{"Song": theSongs}}
+    result, err := collection.UpdateOne(context.Background(), status, update)
+
+    //result, err :=  collection.UpdateOne(context.Background(), songs, songs[]+1)
+    if err != nil {
+        return fmt.Errorf("Error updating task status in database: %v", err)
+    }
+    if result.ModifiedCount == 0 {
+        return fmt.Errorf("Task not found in database")
+    }
+
+    return nil
+}
+
+func removeSongFromPlaylist(playlistName string, song Song, userID string) error {
+    //connect to MongoDB on localhost port 27017
+    client, err := mongo.Connect(context.TODO(), options.Client().ApplyURI("mongodb://localhost:27017"))
+    if err != nil {
+        return fmt.Errorf("Error connecting to MongoDB: %v", err)
+    }
+    defer client.Disconnect(context.TODO())
+
+    //get a handle to the tasks collection
+    collection := client.Database("CEN3031_Test").Collection("SongStructure")
+
+    //find all tasks with the given userID and description
+    filter := bson.M{"playlist": playlistName}
+    cursor, err := collection.Find(context.Background(), filter)
+
+    if err != nil {
+        return fmt.Errorf("Cursor found nothing: %v", err)
+    }
+
+    defer cursor.Close(context.TODO())
+
+    //decode the cursor into a slice of Task objects
+    var playlist []Playlist
+    err = cursor.All(context.Background(), &playlist)
+
+    theSongs := playlist[0].Songs
+
+    if len(playlist) == 0 {
+        fmt.Printf("0 Size")
+    } else {
+        fmt.Printf("Not of size 0\n,")
+    }
+    for i := 0; i < len(theSongs); i++ {
+        if theSongs[i].Artist == song.Artist && theSongs[i].Song == song.Song {
+            theSongs[i].Artist = ""
+            theSongs[i].Song = ""
+            break
+        }
+    }
+
+    //update the task status in the database
+    status := bson.M{"playlist": playlistName}
+    update := bson.M{"$set": bson.M{"Song": theSongs}}
+    result, err := collection.UpdateOne(context.Background(), status, update)
+
+    //result, err :=  collection.UpdateOne(context.Background(), songs, songs[]+1)
+    if err != nil {
+        return fmt.Errorf("Error updating task status in database: %v", err)
+    }
+    if result.ModifiedCount == 0 {
+        return fmt.Errorf("Task not found in database")
+    }
+
+    return nil
+}
+
+func updateSongFromPlaylist(playlistName string, song Song, UserID string, newSong string, newArtist string, newUrl string) error {
+    //connect to MongoDB on localhost port 27017
+    client, err := mongo.Connect(context.TODO(), options.Client().ApplyURI("mongodb://localhost:27017"))
+    if err != nil {
+        return fmt.Errorf("Error connecting to MongoDB: %v", err)
+    }
+    defer client.Disconnect(context.TODO())
+
+    //get a handle to the tasks collection
+    collection := client.Database("CEN3031_Test").Collection("SongStructure")
+
+    //find all tasks with the given userID and description
+    filter := bson.M{"playlist": playlistName}
+    cursor, err := collection.Find(context.Background(), filter)
+
+    if err != nil {
+        return fmt.Errorf("Cursor found nothing: %v", err)
+    }
+
+    defer cursor.Close(context.TODO())
+
+    //decode the cursor into a slice of Task objects
+    var playlist []Playlist
+    err = cursor.All(context.Background(), &playlist)
+
+    theSongs := playlist[0].Songs
+
+    if len(playlist) == 0 {
+        fmt.Printf("0 Size")
+    } else {
+        fmt.Printf("Not of size 0\n,")
+    }
+    for i := 0; i < len(theSongs); i++ {
+        if theSongs[i].Artist == song.Artist && theSongs[i].Song == song.Song {
+            theSongs[i].Artist = newArtist
+            theSongs[i].Song = newSong
+            theSongs[i].url = newUrl
+            break
+        }
+    }
+
+    //update the task status in the database
+    status := bson.M{"playlist": playlistName}
+    update := bson.M{"$set": bson.M{"Song": theSongs}}
+    result, err := collection.UpdateOne(context.Background(), status, update)
+
+    //result, err :=  collection.UpdateOne(context.Background(), songs, songs[]+1)
+    if err != nil {
+        return fmt.Errorf("Error updating task status in database: %v", err)
+    }
+    if result.ModifiedCount == 0 {
+        return fmt.Errorf("Task not found in database")
+    }
+
+    return nil
+}
+func deletePlaylist(playlistName string, userID string) error {
+    //connect to MongoDB on localhost port 27017
+    client, err := mongo.Connect(context.Background(), options.Client().ApplyURI("mongodb://localhost:27017"))
+    if err != nil {
+        return fmt.Errorf("Error connecting to MongoDB: %v", err)
+    }
+    defer client.Disconnect(context.Background())
+
+    //get a handle to the tasks collection
+    collection := client.Database("CEN3031_Test").Collection("SongStructure")
+
+    //delete the task from the databasec
+    filter := bson.M{"playlist": playlistName}
+    result, err := collection.DeleteOne(context.Background(), filter)
+    if err != nil {
+        return fmt.Errorf("Error deleting playlist from database: %v", err)
+    }
+    if result.DeletedCount == 0 {
+        return fmt.Errorf("Playlist not found in database")
+    }
+
+    return nil
+}
+
+func getPlaylist(playlistName string, userID string) error {
+    //connect to MongoDB on localhost port 27017
+    client, err := mongo.Connect(context.Background(), options.Client().ApplyURI("mongodb://localhost:27017"))
+    if err != nil {
+        return fmt.Errorf("Error connecting to MongoDB: %v", err)
+    }
+    defer client.Disconnect(context.Background())
+
+    //get a handle to the tasks collection
+    collection := client.Database("CEN3031_Test").Collection("SongStructure")
+
+    //find all tasks with the given userID and description
+    filter := bson.M{"playlist": playlistName}
+    cursor, err := collection.Find(context.Background(), filter)
+
+    if err != nil {
+        return fmt.Errorf("Cursor found nothing: %v", err)
+    }
+    
+    defer cursor.Close(context.TODO())
+
+    //decode the cursor into a slice of Task objects
+    var playlist []Playlist
+    err = cursor.All(context.Background(), &playlist)
+
+    //put task into JSON for transfer
+    jsonBytes, err := utils.StructToJSON(playlist)
+    if err != nil {
+    }
+
+    //set content type to json
+    fmt.Println(jsonBytes)
+
+    return nil
+}

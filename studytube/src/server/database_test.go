@@ -191,3 +191,145 @@ func TestUpdateTaskStatus(t *testing.T) {
 	// 	t.Errorf("Error deleting task from database: %v", err)
 	// }
 }
+
+func TestAddPlaylist(t *testing.T) {
+    //connect to MongoDB on localhost port 27017
+    client, err := mongo.Connect(context.Background(), options.Client().ApplyURI("mongodb://localhost:27017"))
+    if err != nil {
+        t.Errorf("Error connecting to MongoDB: %v", err)
+    }
+    defer client.Disconnect(context.Background())
+
+    song := Song{
+        Song:   "Forever",
+        Artist: "Drake",
+        url:    "Spotify test URL",
+    }
+
+    var songs [100]Song
+    songs[0] = song
+
+    UserID := "12345"
+
+    //add the task to the database
+    err = addPlaylist("tempPlayListName", songs, UserID)
+    if err != nil {
+        t.Errorf("Error adding task to task list: %v", err)
+    }
+}
+
+func TestAddSong(t *testing.T) {
+    //connect to MongoDB on localhost port 27017
+    client, err := mongo.Connect(context.Background(), options.Client().ApplyURI("mongodb://localhost:27017"))
+    if err != nil {
+        t.Errorf("Error connecting to MongoDB: %v", err)
+    }
+    defer client.Disconnect(context.Background())
+
+    //get a handle to the tasks collection
+
+    song := Song{
+        Song:   "I wonder",
+        Artist: "Kanye",
+        url:    "Spotify test URL",
+    }
+    songTwo := Song{
+        Song:   "Sick and Tired",
+        Artist: "iann dior",
+        url:    "Spotify test URL",
+    }
+
+    var songs [100]Song
+    songs[0] = song
+    //songs[0] = songTwo
+
+    //test
+
+    songs[1] = songTwo
+
+    UserID := "12345"
+
+    //add the task to the database
+    err = addSongToSpotifyPlaylist("tempPlayListName", songs, UserID)
+    if err != nil {
+        t.Errorf("Error adding task to task list: %v", err)
+    }
+}
+func TestUpdateSong(t *testing.T) {
+    //connect to MongoDB on localhost port 27017
+    client, err := mongo.Connect(context.Background(), options.Client().ApplyURI("mongodb://localhost:27017"))
+    if err != nil {
+        t.Errorf("Error connecting to MongoDB: %v", err)
+    }
+    defer client.Disconnect(context.Background())
+
+    song := Song{
+        Song:   "Forever",
+        Artist: "Drake",
+        url:    "Spotify test URL",
+    }
+
+    var songs [100]Song
+    songs[0] = song
+
+    UserID := "12345"
+
+    newSong := "Memories"
+    newArtist := "Thutmose"
+    newUrl := "Apple Music Test URL"
+
+    //remove the task from the database
+    err = updateSongFromPlaylist("tempPlayListName", song, UserID, newSong, newArtist, newUrl)
+    if err != nil {
+        t.Errorf("Error adding task to task list: %v", err)
+    }
+}
+func TestRemoveSong(t *testing.T) {
+    //connect to MongoDB on localhost port 27017
+    client, err := mongo.Connect(context.Background(), options.Client().ApplyURI("mongodb://localhost:27017"))
+    if err != nil {
+        t.Errorf("Error connecting to MongoDB: %v", err)
+    }
+    defer client.Disconnect(context.Background())
+
+    song := Song{
+        Song:   "Memories",
+        Artist: "Thutmose",
+        url:    "Spotify test URL",
+    }
+
+    var songs [100]Song
+    songs[0] = song
+
+    UserID := "12345"
+
+    //remove the task from the database
+    err = removeSongFromPlaylist("tempPlayListName", song, UserID)
+    if err != nil {
+        t.Errorf("Error adding task to task list: %v", err)
+    }
+}
+func TestGetPlaylist(t *testing.T) {
+    //connect to MongoDB on localhost port 27017
+    client, err := mongo.Connect(context.Background(), options.Client().ApplyURI("mongodb://localhost:27017"))
+    if err != nil {
+        t.Errorf("Error connecting to MongoDB: %v", err)
+    }
+    defer client.Disconnect(context.Background())
+
+    UserID := "12345"
+
+    getPlaylist("tempPlayListName", UserID)
+}
+func TestDeletePlaylist(t *testing.T) {
+    //connect to MongoDB on localhost port 27017
+    client, err := mongo.Connect(context.Background(), options.Client().ApplyURI("mongodb://localhost:27017"))
+    if err != nil {
+        t.Errorf("Error connecting to MongoDB: %v", err)
+    }
+    defer client.Disconnect(context.Background())
+
+    UserID := "12345"
+
+    deletePlaylist("tempPlayListName", UserID)
+}
