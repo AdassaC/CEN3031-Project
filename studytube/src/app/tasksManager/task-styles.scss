@@ -1,0 +1,47 @@
+/*Import feComponentTransfer*/
+
+/*Import fonts*/
+@import url('https://fonts.googleapis.com/css?family=Lato400,700|Nunito:400,700');
+@import url('https://fonts.googleapis.com/css?family=Lato:400,700|Nunito:400,700');
+@import url('http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400&display=swap');
+@import url('~bulma/css/bulma.css');
+
+$color1: #0f6bbc;
+$color2: #18368a;
+$color3: rgb(43, 226, 168);
+$color4: rgb(196, 198, 199);
+$color5: rgb(4, 85, 112);
+
+/*Main styles*/
+$family-sans-serif: "Nunito", sans-serif;
+$primary: $color2;
+$link: $color2;
+$control-border-width: 2px;
+$input-border-color: transparent;
+$input-shadow: none;
+
+html{
+    background: linear-gradient(to right top, #ffffff, #34625f);
+}
+
+html, body {
+    height: 100%;
+    background: linear-gradient(to right top, #ffffff, #003d73);
+}
+
+.is-primary {
+    color: $color2;
+}
+
+.centered-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+
