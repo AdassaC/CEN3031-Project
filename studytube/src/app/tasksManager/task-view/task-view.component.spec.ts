@@ -33,6 +33,6 @@ describe('TaskViewComponent', () => {
     const fixture = TestBed.createComponent(TaskViewComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('a').textContent).toContain('User Profile');
+    expect(compiled.querySelector('h1').textContent).toContain('Create a new list');
   });
 });
