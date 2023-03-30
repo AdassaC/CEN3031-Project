@@ -9,6 +9,7 @@ import { __param } from 'tslib';
   encapsulation: ViewEncapsulation.ShadowDom
 })
 export class TaskViewComponent {
+  title = "tasks";
   /*lists: any[];
   //each list should have a title
 
