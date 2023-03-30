@@ -17,7 +17,22 @@ describe('TaskViewComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('should create TaskView', async() => {
+    const fixture = TestBed.createComponent(TaskViewComponent);
+    const register = fixture.componentInstance;
+    expect(register).toBeTruthy();
+  });
+
+  it(`should have as title 'TaskView'`, async() => {
+    const fixture = TestBed.createComponent(TaskViewComponent);
+    const app = fixture.debugElement.componentInstance;
+    expect(app.title).toEqual('TaskView');
+  });
+
+  it('should render "title" in a a tag', async() => {
+    const fixture = TestBed.createComponent(TaskViewComponent);
+    fixture.detectChanges();
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('a').textContent).toContain('User Profile');
   });
 });
