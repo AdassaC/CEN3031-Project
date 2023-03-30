@@ -18,7 +18,22 @@ describe('PlaylistGeneratorComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('should create PlayistGenerator', async() => {
+    const fixture = TestBed.createComponent(PlaylistGeneratorComponent);
+    const register = fixture.componentInstance;
+    expect(register).toBeTruthy();
+  });
+
+  it(`should have as title 'Playlist Generator'`, async() => {
+    const fixture = TestBed.createComponent(PlaylistGeneratorComponent);
+    const app = fixture.debugElement.componentInstance;
+    expect(app.title).toEqual('Playlist Generator');
+  });
+
+  it('should render "title" in a a tag', async() => {
+    const fixture = TestBed.createComponent(PlaylistGeneratorComponent);
+    fixture.detectChanges();
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('h1').textContent).toContain('Create a playlist');
   });
 });

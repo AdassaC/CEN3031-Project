@@ -11,6 +11,7 @@ import { EventEmitter, Output } from '@angular/core';
 })
 
 export class PlaylistGeneratorComponent {
+  title = "Playlist Generator";
   @Output() submit = new EventEmitter();
 
   playlistForm = this.fb.group({
