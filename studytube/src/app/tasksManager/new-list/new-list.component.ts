@@ -6,6 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['../task-styles.scss','./new-list.component.css']
 })
 export class NewListComponent {
+  title = 'Create a new list';
   /*constructor(private taskService: TaskService) {}
 
   ngOnInit() {}
