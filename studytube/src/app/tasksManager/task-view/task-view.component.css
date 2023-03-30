@@ -117,5 +117,6 @@ button.button.is-primary:hover{
     font-size: 24px;
 }
 
-
-
+a {
+    color: white;
+}
