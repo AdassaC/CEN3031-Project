@@ -2,6 +2,10 @@ package main
 
 import (
 	"context"
+	"fmt"
+	"reflect"
+
+	// "fmt"
 	"testing"
 
 	"go.mongodb.org/mongo-driver/bson"
@@ -24,8 +28,149 @@ func TestConnectToDB(t *testing.T) {
 		t.Fatalf("error pinging MongoDB server: %v", err)
 	}
 }
+func TestAddPlaylist(t *testing.T) {
+	//connect to MongoDB on localhost port 27017
+	client, err := mongo.Connect(context.Background(), options.Client().ApplyURI("mongodb://localhost:27017"))
+	if err != nil {
+		t.Errorf("Error connecting to MongoDB: %v", err)
+	}
+	defer client.Disconnect(context.Background())
 
-func TestAddTask(t *testing.T) {
+	song := Song{
+		Song:   "Forever",
+		Artist: "Drake",
+		url:    "Spotify test URL",
+	}
+
+	var songs [100]Song
+	songs[0] = song
+
+	UserID := "12345"
+
+	//add the task to the database
+	err = addPlaylist("tempPlayListName", songs, UserID)
+	if err != nil {
+		t.Errorf("Error adding task to task list: %v", err)
+	}
+}
+
+func TestAddSong(t *testing.T) {
+	//connect to MongoDB on localhost port 27017
+	client, err := mongo.Connect(context.Background(), options.Client().ApplyURI("mongodb://localhost:27017"))
+	if err != nil {
+		t.Errorf("Error connecting to MongoDB: %v", err)
+	}
+	defer client.Disconnect(context.Background())
+
+	//get a handle to the tasks collection
+
+	song := Song{
+		Song:   "I wonder",
+		Artist: "Kanye",
+		url:    "Spotify test URL",
+	}
+	songTwo := Song{
+		Song:   "Sick and Tired",
+		Artist: "iann dior",
+		url:    "Spotify test URL",
+	}
+
+	var songs [100]Song
+	songs[0] = song
+	//songs[0] = songTwo
+
+	//test
+
+	songs[1] = songTwo
+
+	UserID := "12345"
+
+	//add the task to the database
+	err = addSongToSpotifyPlaylist("tempPlayListName", songs, UserID)
+	if err != nil {
+		t.Errorf("Error adding task to task list: %v", err)
+	}
+}
+func TestUpdateSong(t *testing.T) {
+	//connect to MongoDB on localhost port 27017
+	client, err := mongo.Connect(context.Background(), options.Client().ApplyURI("mongodb://localhost:27017"))
+	if err != nil {
+		t.Errorf("Error connecting to MongoDB: %v", err)
+	}
+	defer client.Disconnect(context.Background())
+
+	song := Song{
+		Song:   "Forever",
+		Artist: "Drake",
+		url:    "Spotify test URL",
+	}
+
+	var songs [100]Song
+	songs[0] = song
+
+	UserID := "12345"
+
+	newSong := "Memories"
+	newArtist := "Thutmose"
+	newUrl := "Apple Music Test URL"
+
+	//remove the task from the database
+	err = updateSongFromPlaylist("tempPlayListName", song, UserID, newSong, newArtist, newUrl)
+	if err != nil {
+		t.Errorf("Error adding task to task list: %v", err)
+	}
+}
+func TestRemoveSong(t *testing.T) {
+	//connect to MongoDB on localhost port 27017
+	client, err := mongo.Connect(context.Background(), options.Client().ApplyURI("mongodb://localhost:27017"))
+	if err != nil {
+		t.Errorf("Error connecting to MongoDB: %v", err)
+	}
+	defer client.Disconnect(context.Background())
+
+	song := Song{
+		Song:   "Memories",
+		Artist: "Thutmose",
+		url:    "Spotify test URL",
+	}
+
+	var songs [100]Song
+	songs[0] = song
+
+	UserID := "12345"
+
+	//remove the task from the database
+	err = removeSongFromPlaylist("tempPlayListName", song, UserID)
+	if err != nil {
+		t.Errorf("Error adding task to task list: %v", err)
+	}
+}
+func TestGetPlaylist(t *testing.T) {
+	//connect to MongoDB on localhost port 27017
+	client, err := mongo.Connect(context.Background(), options.Client().ApplyURI("mongodb://localhost:27017"))
+	if err != nil {
+		t.Errorf("Error connecting to MongoDB: %v", err)
+	}
+	defer client.Disconnect(context.Background())
+
+	UserID := "12345"
+
+	getPlaylist("tempPlayListName", UserID)
+}
+func TestDeletePlaylist(t *testing.T) {
+	//connect to MongoDB on localhost port 27017
+	client, err := mongo.Connect(context.Background(), options.Client().ApplyURI("mongodb://localhost:27017"))
+	if err != nil {
+		t.Errorf("Error connecting to MongoDB: %v", err)
+	}
+	defer client.Disconnect(context.Background())
+
+	UserID := "12345"
+
+	deletePlaylist("tempPlayListName", UserID)
+}
+
+func TestAddTaskToList(t *testing.T) {
 	//connect to MongoDB on localhost port 27017
 	client, err := mongo.Connect(context.Background(), options.Client().ApplyURI("mongodb://localhost:27017"))
 	if err != nil {
@@ -41,66 +186,30 @@ func TestAddTask(t *testing.T) {
 		Description: "Test Task",
 		Status:      "Not Started",
 		UserID:      "123456",
+		ListName:    "Test List",
 	}
 
 	//add the task to the database
-	err = addTask(task.Description, task.Status, task.UserID)
+	err = addTask(task.Description, task.Status, task.UserID, task.ListName)
 	if err != nil {
 		t.Errorf("Error adding task to task list: %v", err)
 	}
 
 	//check that the task was added to the database
-	filter := bson.M{"description": "Test Task"}
+	filter := bson.M{
+		"description": task.Description,
+		"userID":      task.UserID,
+		"listName":    task.ListName,
+	}
 	var result Task
 	err = collection.FindOne(context.Background(), filter).Decode(&result)
 	if err != nil {
 		t.Errorf("Error finding task in database: %v", err)
 	}
-	//check
-	if result.Description != task.Description || result.Status != task.Status || result.UserID != task.UserID {
+
+	// check that the task was added correctly to the database
+	if result.Description != task.Description || result.Status != task.Status || result.UserID != task.UserID || result.ListName != task.ListName {
 		t.Errorf("Task not added correctly to database")
-	}
-}
-
-func TestGetTasksByUserID(t *testing.T) {
-	//connect to MongoDB on localhost port 27017
-	client, err := mongo.Connect(context.Background(), options.Client().ApplyURI("mongodb://localhost:27017"))
-	if err != nil {
-		t.Errorf("Error connecting to MongoDB: %v", err)
-	}
-	defer client.Disconnect(context.Background())
-
-	//get a handle to the tasks collection
-	collection := client.Database("CEN3031_Test").Collection("TestStructure")
-
-	//add some test tasks to the database
-	task1 := Task{
-		Description: "Test Task 1",
-		Status:      "Not Started",
-		UserID:      "1234567",
-	}
-	task2 := Task{
-		Description: "Test Task 2",
-		Status:      "Not Started",
-		UserID:      "12345678",
-	}
-	_, err = collection.InsertMany(context.Background(), []interface{}{task1, task2})
-	if err != nil {
-		t.Errorf("Error adding test tasks to database: %v", err)
-	}
-
-	//get tasks for user "123456"
-	tasks, err := getTasksByUserID("1234567")
-	if err != nil {
-		t.Errorf("Error getting tasks from database: %v", err)
-	}
-
-	//check that the correct tasks were retrieved
-	if len(tasks) != 1 {
-		t.Errorf("Incorrect number of tasks retrieved from database")
-	}
-	if tasks[0].Description != task1.Description || tasks[0].Status != task1.Status || tasks[0].UserID != task1.UserID {
-		t.Errorf("Incorrect task retrieved from database")
 	}
 }
 
@@ -120,26 +229,63 @@ func TestDeleteTask(t *testing.T) {
 		Description: "Test Task",
 		Status:      "Not Started",
 		UserID:      "123456",
+		ListName:    "Test List",
 	}
 
 	//add the task to the database
-	// err = addTask(task.Description, task.Status, task.UserID)
+	// err = addTask(task.Description, task.Status, task.UserID, task.ListName)
 	// if err != nil {
 	// 	t.Errorf("Error adding task to task list: %v", err)
 	// }
 
 	//delete the test task from the database
-	err = deleteTask(task.Description)
+	err = deleteTask(task.Description, task.ListName)
 	if err != nil {
 		t.Errorf("Error deleting task from database: %v", err)
 	}
 
 	//check that the task was deleted from the database
-	filter := bson.M{"description": "Test Task"}
+	filter := bson.M{"description": "Test Task 2", "listName": "Test List"}
 	err = collection.FindOne(context.Background(), filter).Decode(&task)
 	if err == nil {
 		t.Errorf("Task not deleted from database")
 	}
+}
+
+func TestGetTaskByDescriptionUserIDAndListName(t *testing.T) {
+	// Set up test database and collection
+	client, err := mongo.Connect(context.TODO(), options.Client().ApplyURI("mongodb://localhost:27017"))
+	if err != nil {
+		t.Fatalf("Error connecting to MongoDB: %v", err)
+	}
+	defer client.Disconnect(context.TODO())
+
+	collection := client.Database("CEN3031_Test").Collection("TestStructure")
+
+	//insert test task into database
+	testTask := Task{
+		ID:          "1",
+		Description: "Test task",
+		Status:      "Incomplete",
+		UserID:      "user123",
+		ListName:    "Test list",
+	}
+	_, err = collection.InsertOne(context.Background(), testTask)
+	if err != nil {
+		t.Fatalf("Error inserting test task: %v", err)
+	}
+
+	//test finding the task by description, user ID, and list name
+	foundTask, err := getTaskByDescriptionUserIDAndListName("Test task", "user123", "Test list")
+	if err != nil {
+		t.Fatalf("Error finding task: %v", err)
+	}
+
+	//comparative test
+	if foundTask.ID != "1" || foundTask.Status != "Incomplete" {
+		t.Errorf("Expected userID 1 and status Incomplete, got ID '%s' and status '%s'", foundTask.ID, foundTask.Status)
+	}
+	fmt.Printf("Description: %v", foundTask.Description)
 }
 
 func TestUpdateTaskStatus(t *testing.T) {
@@ -158,36 +304,64 @@ func TestUpdateTaskStatus(t *testing.T) {
 		Description: "Test Task",
 		Status:      "Not Started",
 		UserID:      "123456",
+		ListName:    "Test List",
 	}
 
 	//add the task to the database
-	err = addTask(task.Description, task.Status, task.UserID)
+	err = addTask(task.Description, task.Status, task.UserID, task.ListName)
 	if err != nil {
 		t.Errorf("Error adding task to task list: %v", err)
 	}
 
-	//update the task's status
-	newStatus := "In Progress"
-	err = updateTaskStatus(task.Description, newStatus)
+	//update the task status in the database
+	err = updateTaskStatus(task.Description, "In Progress", task.ListName)
 	if err != nil {
-		t.Errorf("Error updating task status: %v", err)
+		t.Errorf("Error updating task status in database: %v", err)
 	}
 
-	//check that the task's status was updated in the database
-	status := bson.M{"description": "Test Task"}
-	var result Task
-	err = collection.FindOne(context.Background(), status).Decode(&result)
+	//check that the task status was updated in the database
+	filter := bson.M{"description": "Test Task"}
+	var updatedTask Task
+	err = collection.FindOne(context.Background(), filter).Decode(&updatedTask)
 	if err != nil {
 		t.Errorf("Error finding task in database: %v", err)
 	}
-	if result.Status != newStatus {
-		t.Errorf("Task status not updated correctly in database")
+	if updatedTask.Status != "In Progress" {
+		t.Errorf("Task status not updated in database")
+	}
+}
+
+func TestGetListName(t *testing.T) {
+	//connect to MongoDB on localhost port 27017
+	client, err := mongo.Connect(context.Background(), options.Client().ApplyURI("mongodb://localhost:27017"))
+	if err != nil {
+		t.Errorf("Error connecting to MongoDB: %v", err)
+	}
+	defer client.Disconnect(context.Background())
+
+	//test
+
+	//initialize test data
+	userID := "test-user"
+	expectedListNames := []string{"list1", "list2", "list3"}
+	for _, listName := range expectedListNames {
+		taskList := TaskList{
+			UserID:   userID,
+			ListName: listName,
+		}
+		_, err := client.Database("CEN3031_Test").Collection("TestStructure").InsertOne(context.Background(), taskList)
+		if err != nil {
+			t.Fatalf("Error inserting test data: %v", err)
+		}
 	}
 
-	//delete the test task from the database
-	//decided to add this since most test tasks were getting too similar, will add to other tests eventually or a command to clear out the test DB
-	// err = deleteTask(task.Description)
-	// if err != nil {
-	// 	t.Errorf("Error deleting task from database: %v", err)
-	// }
+	//call getListNames and verify the results
+	listNames, err := getListNames(userID)
+	if err != nil {
+		t.Fatalf("Error calling getListNames: %v", err)
+	}
+	//reflect.DeepEqual to compare the two lists
+	if !reflect.DeepEqual(listNames, expectedListNames) {
+		t.Fatalf("Expected list names %v, but got %v", expectedListNames, listNames)
+	}
 }
