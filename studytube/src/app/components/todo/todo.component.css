@@ -186,6 +186,9 @@ body{
 .settings li i{
   padding-right: 8px;
 }
+.list-group-item span {
+  cursor: pointer;
+}
 
 @media (max-width: 400px) {
   body{
