@@ -29,6 +29,9 @@ import { FooterComponent } from './shared/footer/footer.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SpotifyPlayerComponent } from './components/spotify-player/spotify-player.component';
+import { TodoComponent } from './components/todo/todo.component';
+import { ListsComponent } from './components/lists/lists.component';
+import { SettingsComponent } from './components/settings/settings.component';
 
 
 @NgModule({
@@ -46,7 +49,11 @@ import { SpotifyPlayerComponent } from './components/spotify-player/spotify-play
     ReportBugsComponent,
     FooterComponent,
     NavbarComponent,
-    SpotifyPlayerComponent
+    SpotifyPlayerComponent,
+    TodoComponent,
+    ListsComponent,
+    SettingsComponent
+
   ],
 
   imports: [

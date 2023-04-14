@@ -1,17 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Box Icons-->
-  <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
-  <!-- CSS -->
-  <link rel="stylesheet" href="dashboard.component.css">
-  <title>Dashboard</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <!-- Box Icons-->
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+    <title>User Settings</title>
 </head>
 <body>
-
-	<section id="sidebar">
+    
+    <section id="sidebar">
 		<a href="#" class="brand">
 			<!-- <i class='bx bxs-smile'></i> -->
 			<img src="/assets/images/logo.png" width="100" height="100">
@@ -19,7 +17,7 @@
 		</a>
 		<ul class="side-menu top">
 			<li class="active">
-				<a href="#">
+				<a href="./dashboard">
 					<i class='bx bxs-dashboard' ></i>
 					<span class="text">Dashboard</span>
 				</a>
@@ -100,7 +98,7 @@
 						</li>
 						<li><i class='bx bx-chevron-right' ></i></li>
 						<li>
-							<a class="active" href="#">Home</a>
+							<a class="active" href="#">Settings</a>
 						</li>
 					</ul>
 				</div>
@@ -111,35 +109,20 @@
 			</ul>
 
 
-			<div class="table-data">        
-        
-        		<!-- To Do List-->
-				<div class="todo">
-					<div class="head">
-						<h3>Todo List</h3>
-						<i class='bx bx-plus' ></i>
-						<i class='bx bx-filter' ></i>
-					</div>
-					<ul class="todo-list">
-						<app-todo></app-todo>
-					</ul>
-				</div>
-
-		<!-- Recent Orders (Spotify)-->
-        <div class="order">
-			<div class="head">
-				<h3>Spotify</h3>
-				<i class='bx bx-search' ></i>
-				<i class='bx bx-filter' ></i>
-			</div>
-			<app-spotify-player></app-spotify-player>
-		</div>
-			</div>
+			<div class="user-profile">        
+                <div class="row" *ngIf="authService.userData as user">
+                    <!--<h1>Hello: <strong>{{(user.displayName) ? user.displayName : 'User'}}</strong></h1>-->
+                    <p>User ID: <strong>{{user.uid}}</strong></p>
+                    <p>Email: <strong>{{user.email}}</strong></p>
+                    <p>Email Verified: <strong>{{user.emailVerified}}</strong></p>
+                </div>
+            </div>
 		</main>
 		<!-- MAIN -->
 
 	</section>
 	<!-- CONTENT -->
+
 
 </body>
 </html>
