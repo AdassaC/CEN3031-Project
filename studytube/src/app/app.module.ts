@@ -53,6 +53,7 @@ import { SettingsComponent } from './components/settings/settings.component';
     TodoComponent,
     ListsComponent,
     SettingsComponent
+
   ],
 
   imports: [

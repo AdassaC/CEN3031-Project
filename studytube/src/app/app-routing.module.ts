@@ -37,11 +37,13 @@ const routes: Routes = [
   { path: 'report-bugs', component: ReportBugsComponent},
 
   { path: 'navbar', component: NavbarComponent},
+
   { path: 'footer', component: FooterComponent},
 
   { path: 'lists', component: ListsComponent},
   { path: 'todo', component: TodoComponent},
   { path: 'settings', component: SettingsComponent}
+
   //Gonna have to change to include user id in path
 ];
 
