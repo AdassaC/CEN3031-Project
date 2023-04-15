@@ -16,6 +16,8 @@ import { AboutComponent } from './pages/about/about.component';
 import { ReportBugsComponent } from './pages/report-bugs/report-bugs.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { FooterComponent } from './shared/footer/footer.component';
+import { TaskViewComponent } from './tasksManager/task-view/task-view.component';
+import { NewListComponent } from './tasksManager/new-list/new-list.component';
 import { PlaylistGeneratorComponent } from './components/playlist-generator/playlist-generator.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { ListsComponent } from './components/lists/lists.component';
@@ -37,6 +39,10 @@ const routes: Routes = [
   { path: 'about', component: AboutComponent},
   { path: 'report-bugs', component: ReportBugsComponent},
   { path: 'playlist', component: PlaylistGeneratorComponent},
+
+  { path: 'view-tasks', component: TaskViewComponent},
+  { path: 'lists/:listId', component: TaskViewComponent},
+  { path: 'new-list', component: NewListComponent},
 
   { path: 'navbar', component: NavbarComponent},
 

@@ -1,0 +1,29 @@
+@import url('../task-styles.scss');
+
+/*https://bulma.io/documentation/form/general*/
+
+.modal-box {
+    min-height: 200px;
+    width: 100%;
+    max-width: 580px;
+    background: rgba(177, 216, 255, 0.703);
+    border-radius: 8px;
+    padding: 35px;
+}
+
+.title {
+    text-align: initial;
+}
+
+.input {
+    min-width: 470px;
+}
+
+.button.is-primary.is-medium {
+    background: #18368a;
+}
+
+.name-field.field.has-addons {
+    justify-content: center;
+    padding-top: 10px;
+}
