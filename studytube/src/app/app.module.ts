@@ -27,8 +27,10 @@ import { ReportBugsComponent } from './pages/report-bugs/report-bugs.component';
 import { FormsModule} from '@angular/forms';
 import { FooterComponent } from './shared/footer/footer.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+//import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SpotifyPlayerComponent } from './components/spotify-player/spotify-player.component';
+import { HttpClientModule } from '@angular/common/http';
+import { SpotifyComponent } from './components/spotify/spotify.component';
 
 
 @NgModule({
@@ -46,7 +48,8 @@ import { SpotifyPlayerComponent } from './components/spotify-player/spotify-play
     ReportBugsComponent,
     FooterComponent,
     NavbarComponent,
-    SpotifyPlayerComponent
+    SpotifyPlayerComponent,
+    SpotifyComponent
   ],
 
   imports: [
@@ -57,8 +60,9 @@ import { SpotifyPlayerComponent } from './components/spotify-player/spotify-play
     AngularFirestoreModule,
     AngularFireStorageModule,
     AngularFireDatabaseModule,
-    BrowserAnimationsModule,
-    FormsModule
+   // BrowserAnimationsModule,
+    FormsModule,
+    HttpClientModule
   ],
 
   providers: [AuthService],

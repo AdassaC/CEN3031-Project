@@ -1,0 +1,12 @@
+<p>spotify works!</p>
+
+<form #simpleForm="ngForm" (ngSubmit)="getValues(simpleForm.value)">
+    <input type="text" ngModel name="user" placeholder="enter user data">
+    <br><br>
+    <input type="text" ngModel name="age" placeholder="enter user age">
+    <br><br>
+    <input type="text" ngModel name="address" placeholder="enter user address">
+    <br><br>
+    <button> Get User Values </button>
+</form>
+{{ simpleForm.value | json }}
