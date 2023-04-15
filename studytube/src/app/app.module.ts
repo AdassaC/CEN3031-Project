@@ -59,7 +59,7 @@ import { SettingsComponent } from './components/settings/settings.component';
     NavbarComponent,
     SpotifyPlayerComponent,
     TaskViewComponent,
-    NewListComponent
+    NewListComponent,
     TodoComponent,
     PlaylistGeneratorComponent,
     ListsComponent,
