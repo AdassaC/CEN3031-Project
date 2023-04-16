@@ -31,6 +31,7 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
 import { SpotifyPlayerComponent } from './components/spotify-player/spotify-player.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SpotifyComponent } from './components/spotify/spotify.component';
+import { StripeComponent } from './components/stripe/stripe.component';
 
 
 @NgModule({
@@ -49,7 +50,8 @@ import { SpotifyComponent } from './components/spotify/spotify.component';
     FooterComponent,
     NavbarComponent,
     SpotifyPlayerComponent,
-    SpotifyComponent
+    SpotifyComponent,
+    StripeComponent
   ],
 
   imports: [

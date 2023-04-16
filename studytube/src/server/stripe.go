@@ -1,27 +1,25 @@
 package main
 
-
 import (
-   "bytes"
-   "encoding/json"
-   "io"
-   "io/ioutil"
-   "log"
-   "net/http"
-   "os"
+	"bytes"
+	"encoding/json"
+	//"fmt"
+	"io"
+	"io/ioutil"
+	"log"
+	"net/http"
+	"os"
 
-
-   "github.com/joho/godotenv"
-   "github.com/stripe/stripe-go/v71"
-   "github.com/stripe/stripe-go/v71/customer"
-   "github.com/stripe/stripe-go/v71/invoice"
-   "github.com/stripe/stripe-go/v71/paymentmethod"
-   "github.com/stripe/stripe-go/v71/sub"
-   "github.com/stripe/stripe-go/v71/webhook"
+	"github.com/stripe/stripe-go/v71"
+	"github.com/stripe/stripe-go/v71/customer"
+	"github.com/stripe/stripe-go/v71/invoice"
+	"github.com/stripe/stripe-go/v71/paymentmethod"
+	"github.com/stripe/stripe-go/v71/sub"
+	"github.com/stripe/stripe-go/v71/webhook"
 )
 
 
-func handleConfig(w http.ResponseWriter, r *http.Request) {
+/*func handleConfig(w http.ResponseWriter, r *http.Request) {
 	if r.Method != "GET" {
 		http.Error(w, http.StatusText(http.StatusMethodNotAllowed), http.StatusMethodNotAllowed)
 		return
@@ -35,6 +33,8 @@ func handleConfig(w http.ResponseWriter, r *http.Request) {
  
  
  func handleCreateCustomer(w http.ResponseWriter, r *http.Request) {
+	fmt.Print("We are inside of the create customer method")
+
 	if r.Method != "POST" {
 		http.Error(w, http.StatusText(http.StatusMethodNotAllowed), http.StatusMethodNotAllowed)
 		return
@@ -68,7 +68,7 @@ func handleConfig(w http.ResponseWriter, r *http.Request) {
 		Customer: c,
 	})
  }
- 
+ */
  
  func handleRetrieveCustomerPaymentMethod(w http.ResponseWriter, r *http.Request) {
 	if r.Method != "POST" {
