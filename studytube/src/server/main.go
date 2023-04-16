@@ -2,7 +2,8 @@ package main
 
 import (
 	//"encoding/json"
-	"context"
+	//"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
@@ -19,10 +20,10 @@ import (
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 	"github.com/stripe/stripe-go"
-	"go.mongodb.org/mongo-driver/bson"
+	"github.com/stripe/stripe-go/customer"
+	/*"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
-	"go.mongodb.org/mongo-driver/mongo/options"
-)
+	"go.mongodb.org/mongo-driver/mongo/options"*/)
 
 
 func main() {
@@ -68,15 +69,15 @@ func httpHandler() http.Handler {
 	router.HandleFunc("/getPlaylist{playlistName}", getPlaylist).Methods("GET")
 	
 	// Stripe API Handlers
-	http.HandleFunc("/config", handleConfig)
-	http.HandleFunc("/create-customer", handleCreateCustomer)
-	http.HandleFunc("/retrieve-customer-payment-method", handleRetrieveCustomerPaymentMethod)
-	http.HandleFunc("/create-subscription", handleCreateSubscription)
-	http.HandleFunc("/cancel-subscription", handleCancelSubscription)
-	http.HandleFunc("/update-subscription", handleUpdateSubscription)
-	http.HandleFunc("/retry-invoice", handleRetryInvoice)
-	http.HandleFunc("/retrieve-upcoming-invoice", handleRetrieveUpcomingInvoice)
-	http.HandleFunc("/webhook", handleWebhook)
+	router.HandleFunc("/config", handleConfig).Methods("GET")
+	router.HandleFunc("/create-customer", handleCreateCustomer).Methods("POST")
+	router.HandleFunc("/retrieve-customer-payment-method", handleRetrieveCustomerPaymentMethod)
+	router.HandleFunc("/create-subscription", handleCreateSubscription)
+	router.HandleFunc("/cancel-subscription", handleCancelSubscription)
+	router.HandleFunc("/update-subscription", handleUpdateSubscription)
+	router.HandleFunc("/retry-invoice", handleRetryInvoice)
+	router.HandleFunc("/retrieve-upcoming-invoice", handleRetrieveUpcomingInvoice)
+	router.HandleFunc("/webhook", handleWebhook)
 	
 	// WARNING: this route must be the last route defined.
 
@@ -97,6 +98,58 @@ func httpHandler() http.Handler {
 			handlers.MaxAge(86400),
 		)(router))
 }
+
+
+
+func handleConfig(w http.ResponseWriter, r *http.Request) {
+	if r.Method != "GET" {
+		http.Error(w, http.StatusText(http.StatusMethodNotAllowed), http.StatusMethodNotAllowed)
+		return
+	}
+	writeJSON(w, struct {
+		PublishableKey string `json:"publishableKey"`
+	}{
+		PublishableKey: os.Getenv("STRIPE_PUBLISHABLE_KEY"),
+	})
+ }
+ 
+ 
+ func handleCreateCustomer(w http.ResponseWriter, r *http.Request) {
+	fmt.Print("We are inside of the create customer method")
+
+	if r.Method != "POST" {
+		http.Error(w, http.StatusText(http.StatusMethodNotAllowed), http.StatusMethodNotAllowed)
+		return
+	}
+	var req struct {
+		Email string `json:"email"`
+	}
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		log.Printf("json.NewDecoder.Decode: %v", err)
+		return
+	}
+ 
+ 
+	params := &stripe.CustomerParams{
+		Email: stripe.String(req.Email),
+	}
+ 
+ 
+	c, err := customer.New(params)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		log.Printf("customer.New: %v", err)
+		return
+	}
+ 
+ 
+	writeJSON(w, struct {
+		Customer *stripe.Customer `json:"customer"`
+	}{
+		Customer: c,
+	})
+ }
 
 type Track struct {
 
@@ -288,6 +341,10 @@ func handleBookPost(w http.ResponseWriter, r *http.Request) {
 
 	fmt.Fprintf(w, "You've attempted to post the book: %s on page %s\n", title, page)
 } 
+
+func handleEstablishCustomer(w http.ResponseWriter, r *http.Request) {
+	fmt.Print("We are inside of the establish customer method")
+}
 
 func setUserIDCookieHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
