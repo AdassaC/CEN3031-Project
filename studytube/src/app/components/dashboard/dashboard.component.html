@@ -37,15 +37,9 @@
 				</a>
 			</li>
 			<li>
-				<a href="#">
+				<a href="./playlist">
 					<i class='bx bx-music' ></i>
-					<span class="text">Past Playlists</span>
-				</a>
-			</li>
-			<li>
-				<a href="#">
-					<i class='bx bxs-group' ></i>
-					<span class="text">Team</span>
+					<span class="text">Playlists</span>
 				</a>
 			</li>
 		</ul>
@@ -56,9 +50,16 @@
 					<span class="text">Settings</span>
 				</a>
 			</li>
-			<li>
+			<!-- <li>
 				<a href="#" class="logout">
 					<i class='bx bxs-log-out' ></i>					
+					<span class="text">Logout</span>
+				</a>
+			</li> -->
+			<!-- (New!) Logout button -->
+			<li>
+				<a href="./home" class="nav-link" (click)="authService.SignOut">
+					<i class='bx bxs-log-out'></i>					
 					<span class="text">Logout</span>
 				</a>
 			</li>
@@ -125,15 +126,15 @@
 					</ul>
 				</div>
 
-		<!-- Recent Orders (Spotify)-->
-        <div class="order">
-			<div class="head">
-				<h3>Spotify</h3>
-				<i class='bx bx-search' ></i>
-				<i class='bx bx-filter' ></i>
-			</div>
-			<app-spotify-player></app-spotify-player>
-		</div>
+				<!-- Recent Orders (Spotify)-->
+				<div class="order">
+					<div class="head">
+						<h3>Spotify</h3>
+						<i class='bx bx-search' ></i>
+						<i class='bx bx-filter' ></i>
+					</div>
+					<app-spotify-player></app-spotify-player>
+				</div>
 			</div>
 		</main>
 		<!-- MAIN -->

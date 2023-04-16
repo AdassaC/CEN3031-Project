@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, FormArray, Form } from '@angular/forms';
 import { Validators } from '@angular/forms';
-import {MAT_FORM_FIELD, MatFormField, MatFormFieldControl} from '@angular/material/form-field';
+import { MAT_FORM_FIELD, MatFormField, MatFormFieldControl } from '@angular/material/form-field';
 import { EventEmitter, Output } from '@angular/core';
 
 @Component({
@@ -39,6 +39,7 @@ export class PlaylistGeneratorComponent {
     // TODO: Use EventEmitter with form value
     console.warn(this.playlistForm.value);
     this.submit.emit(this.playlistForm.value);
+    alert("New playlist created");
   }
 
   /*userArray = [];
