@@ -3,6 +3,7 @@ package main
 import (
 	//"encoding/json"
 	//"context"
+	"bytes"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -19,8 +20,8 @@ import (
 
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
-	"github.com/stripe/stripe-go"
-	"github.com/stripe/stripe-go/customer"
+	"github.com/stripe/stripe-go/v72"
+	"github.com/stripe/stripe-go/v72/customer"
 	/*"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"*/)
@@ -28,7 +29,7 @@ import (
 
 func main() {
 
-	fmt.Print("inside of main.go")
+	fmt.Print("inside of main.eego")
 	host := "127.0.0.1:4201" // may be 4201
 	//host := "http://localhost:4201"
 	if err := http.ListenAndServe(host, httpHandler()); err != nil {
@@ -48,7 +49,7 @@ func httpHandler() http.Handler {
 	router := mux.NewRouter()
 	// Your REST API requests go here
 
-	stripe.Key = os.Getenv("STRIPE_SECRET_KEY")
+	stripe.Key = "sk_test_51MgZiEL5cDZvcnZ2TcSGsp9Ocvji6A74chBRS1RWJdZToy45YmCepYkC7b3rSzKcfcV9MN6cttduCMG0RBV4yXXK00esJlFy6f"
 	// For sample support and debugging, not required for production:
 	stripe.SetAppInfo(&stripe.AppInfo{
 		Name:    "stripe-samples/subscription-use-cases/usage-based-subscriptions",
@@ -70,14 +71,15 @@ func httpHandler() http.Handler {
 	
 	// Stripe API Handlers
 	router.HandleFunc("/config", handleConfig).Methods("GET")
-	router.HandleFunc("/create-customer", handleCreateCustomer).Methods("POST")
+	router.HandleFunc("/create-customer/name/{customerName}", handleCreateCustomer).Methods("POST")
+	/*
 	router.HandleFunc("/retrieve-customer-payment-method", handleRetrieveCustomerPaymentMethod)
 	router.HandleFunc("/create-subscription", handleCreateSubscription)
 	router.HandleFunc("/cancel-subscription", handleCancelSubscription)
 	router.HandleFunc("/update-subscription", handleUpdateSubscription)
 	router.HandleFunc("/retry-invoice", handleRetryInvoice)
 	router.HandleFunc("/retrieve-upcoming-invoice", handleRetrieveUpcomingInvoice)
-	router.HandleFunc("/webhook", handleWebhook)
+	router.HandleFunc("/webhook", handleWebhook)*/
 	
 	// WARNING: this route must be the last route defined.
 
@@ -99,6 +101,19 @@ func httpHandler() http.Handler {
 		)(router))
 }
 
+func writeJSON(w http.ResponseWriter, v interface{}) {
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(v); err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		log.Printf("json.NewEncoder.Encode: %v", err)
+		return
+	}
+	w.Header().Set("Content-Type", "application/json")
+	if _, err := io.Copy(w, &buf); err != nil {
+		log.Printf("io.Copy: %v", err)
+		return
+	}
+ }
 
 
 func handleConfig(w http.ResponseWriter, r *http.Request) {
@@ -109,18 +124,23 @@ func handleConfig(w http.ResponseWriter, r *http.Request) {
 	writeJSON(w, struct {
 		PublishableKey string `json:"publishableKey"`
 	}{
-		PublishableKey: os.Getenv("STRIPE_PUBLISHABLE_KEY"),
+		//PublishableKey: os.Getenv("STRIPE_PUBLISHABLE_KEY"),
+		PublishableKey: "pk_test_51MgZiEL5cDZvcnZ2LMSspBkXaZ4A3DC6ED95PAPWqbOP5BXzEVLghH0rRCr2aPhvtVi4kuPoc1F5cdEmrXClNN4N00uemmQ75U",
 	})
  }
  
  
  func handleCreateCustomer(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	customerName := vars["customerName"] // use this as the email
+
 	fmt.Print("We are inside of the create customer method")
 
 	if r.Method != "POST" {
 		http.Error(w, http.StatusText(http.StatusMethodNotAllowed), http.StatusMethodNotAllowed)
 		return
 	}
+	/*
 	var req struct {
 		Email string `json:"email"`
 	}
@@ -128,13 +148,13 @@ func handleConfig(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		log.Printf("json.NewDecoder.Decode: %v", err)
 		return
-	}
+	} */
  
- 
+	
 	params := &stripe.CustomerParams{
-		Email: stripe.String(req.Email),
+		Description: stripe.String("Stripe Developer"),
+		Email: stripe.String(customerName),
 	}
- 
  
 	c, err := customer.New(params)
 	if err != nil {
@@ -142,14 +162,15 @@ func handleConfig(w http.ResponseWriter, r *http.Request) {
 		log.Printf("customer.New: %v", err)
 		return
 	}
- 
- 
-	writeJSON(w, struct {
-		Customer *stripe.Customer `json:"customer"`
-	}{
-		Customer: c,
-	})
+	fmt.Print(c)
+	// writeJSON(w, struct {
+	// 	Customer *stripe.Customer `json:"customer"`
+	// }{
+	// 	Customer: c,
+	// }) 
+
  }
+
 
 type Track struct {
 
