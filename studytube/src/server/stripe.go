@@ -72,56 +72,7 @@ import (
  }
  
  
- func handleUpdateSubscription(w http.ResponseWriter, r *http.Request) {
-	if r.Method != "POST" {
-		http.Error(w, http.StatusText(http.StatusMethodNotAllowed), http.StatusMethodNotAllowed)
-		return
-	}
- 
- 
-	var req struct {
-		SubscriptionID string `json:"subscriptionId"`
-		NewPriceID     string `json:"newPriceId"`
-	}
- 
- 
-	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		log.Printf("json.NewDecoder.Decode: %v", err)
-		return
-	}
- 
- 
-	s, err := sub.Get(req.SubscriptionID, nil)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		log.Printf("sub.Get: %v", err)
-		return
-	}
- 
- 
-	params := &stripe.SubscriptionParams{
-		CancelAtPeriodEnd: stripe.Bool(false),
-		Items: []*stripe.SubscriptionItemsParams{{
-			ID:    stripe.String(s.Items.Data[0].ID),
-			Price: stripe.String(os.Getenv(req.NewPriceID)),
-		}},
-	}
- 
- 
-	updatedSubscription, err := sub.Update(req.SubscriptionID, params)
- 
- 
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		log.Printf("sub.Update: %v", err)
-		return
-	}
- 
- 
-	writeJSON(w, updatedSubscription)
- }
- 
+
  
  func handleRetryInvoice(w http.ResponseWriter, r *http.Request) {
 	if r.Method != "POST" {

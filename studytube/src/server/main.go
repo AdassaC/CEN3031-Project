@@ -77,11 +77,12 @@ func httpHandler() http.Handler {
 	router.HandleFunc("/retrieve-customer-payment-method", handleRetrieveCustomerPaymentMethod)
 	router.HandleFunc("/create-subscription/pay/{paymentMethodID}/customer/{customerID}/price/{priceID}", handleCreateSubscription)
 	router.HandleFunc("/cancel-subscription/subscription/{subscriptionID}", handleCancelSubscription)
+	router.HandleFunc("/update-subscription/subscription/{subscriptionID}/price/{priceID}", handleUpdateSubscription)
 
 	/*
 	
 	
-	router.HandleFunc("/update-subscription", handleUpdateSubscription)
+	
 	router.HandleFunc("/retry-invoice", handleRetryInvoice)
 	router.HandleFunc("/retrieve-upcoming-invoice", handleRetrieveUpcomingInvoice)
 	router.HandleFunc("/webhook", handleWebhook)*/
@@ -276,7 +277,46 @@ func writeJSON(w http.ResponseWriter, v interface{}) {
 	writeJSON(w, s)
  }
 
-
+ func handleUpdateSubscription(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	subscriptionID := vars["subscriptionID"]
+	priceID := vars["priceID"]
+	
+	if r.Method != "POST" {
+		http.Error(w, http.StatusText(http.StatusMethodNotAllowed), http.StatusMethodNotAllowed)
+		return
+	}
+ 
+	s, err := sub.Get(subscriptionID, nil)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		log.Printf("sub.Get: %v", err)
+		return
+	}
+ 
+ 
+	params := &stripe.SubscriptionParams{
+		CancelAtPeriodEnd: stripe.Bool(false),
+		Items: []*stripe.SubscriptionItemsParams{{
+			ID:    stripe.String(s.Items.Data[0].ID),
+			Price: stripe.String(priceID),
+		}},
+	}
+ 
+ 
+	updatedSubscription, err := sub.Update(subscriptionID, params)
+ 
+ 
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		log.Printf("sub.Update: %v", err)
+		return
+	}
+ 
+ 
+	writeJSON(w, updatedSubscription)
+ }
+ 
 
 
 
