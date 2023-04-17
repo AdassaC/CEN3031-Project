@@ -1,10 +1,8 @@
 package main
 
 import (
-	"bytes"
 	"encoding/json"
-	//"fmt"
-	"io"
+
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -17,167 +15,8 @@ import (
 	"github.com/stripe/stripe-go/v71/sub"
 	"github.com/stripe/stripe-go/v71/webhook"
 )
-
-
-/*func handleConfig(w http.ResponseWriter, r *http.Request) {
-	if r.Method != "GET" {
-		http.Error(w, http.StatusText(http.StatusMethodNotAllowed), http.StatusMethodNotAllowed)
-		return
-	}
-	writeJSON(w, struct {
-		PublishableKey string `json:"publishableKey"`
-	}{
-		PublishableKey: os.Getenv("STRIPE_PUBLISHABLE_KEY"),
-	})
- }
  
  
- func handleCreateCustomer(w http.ResponseWriter, r *http.Request) {
-	fmt.Print("We are inside of the create customer method")
-
-	if r.Method != "POST" {
-		http.Error(w, http.StatusText(http.StatusMethodNotAllowed), http.StatusMethodNotAllowed)
-		return
-	}
-	var req struct {
-		Email string `json:"email"`
-	}
-	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		log.Printf("json.NewDecoder.Decode: %v", err)
-		return
-	}
- 
- 
-	params := &stripe.CustomerParams{
-		Email: stripe.String(req.Email),
-	}
- 
- 
-	c, err := customer.New(params)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		log.Printf("customer.New: %v", err)
-		return
-	}
- 
- 
-	writeJSON(w, struct {
-		Customer *stripe.Customer `json:"customer"`
-	}{
-		Customer: c,
-	})
- }
- */
- 
- func handleRetrieveCustomerPaymentMethod(w http.ResponseWriter, r *http.Request) {
-	if r.Method != "POST" {
-		http.Error(w, http.StatusText(http.StatusMethodNotAllowed), http.StatusMethodNotAllowed)
-		return
-	}
-	var req struct {
-		PaymentMethodID string `json:"paymentMethodId"`
-	}
-	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		log.Printf("json.NewDecoder.Decode: %v", err)
-		return
-	}
- 
- 
-	pm, err := paymentmethod.Get(req.PaymentMethodID, nil)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		log.Printf("paymentmethod.Get: %v", err)
-		return
-	}
- 
- 
-	writeJSON(w, pm)
- }
- 
- 
- func handleCreateSubscription(w http.ResponseWriter, r *http.Request) {
-	if r.Method != "POST" {
-		http.Error(w, http.StatusText(http.StatusMethodNotAllowed), http.StatusMethodNotAllowed)
-		return
-	}
- 
- 
-	var req struct {
-		PaymentMethodID string `json:"paymentMethodId"`
-		CustomerID      string `json:"customerId"`
-		PriceID         string `json:"priceId"`
-	}
- 
- 
-	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		log.Printf("json.NewDecoder.Decode: %v", err)
-		return
-	}
- 
- 
-	// Attach PaymentMethod
-	params := &stripe.PaymentMethodAttachParams{
-		Customer: stripe.String(req.CustomerID),
-	}
-	pm, err := paymentmethod.Attach(
-		req.PaymentMethodID,
-		params,
-	)
-	if err != nil {
-		writeJSON(w, struct {
-			Error error `json:"error"`
-		}{err})
-		return
-	}
- 
- 
-	// Update invoice settings default
-	customerParams := &stripe.CustomerParams{
-		InvoiceSettings: &stripe.CustomerInvoiceSettingsParams{
-			DefaultPaymentMethod: stripe.String(pm.ID),
-		},
-	}
-	c, err := customer.Update(
-		req.CustomerID,
-		customerParams,
-	)
- 
- 
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		log.Printf("customer.Update: %v %s", err, c.ID)
-		return
-	}
- 
- 
-	// Create subscription
-	subscriptionParams := &stripe.SubscriptionParams{
-		Customer: stripe.String(req.CustomerID),
-		Items: []*stripe.SubscriptionItemsParams{
-			{
-				Plan: stripe.String(os.Getenv(req.PriceID)),
-			},
-		},
-	}
-	subscriptionParams.AddExpand("latest_invoice.payment_intent")
-	subscriptionParams.AddExpand("pending_setup_intent")
- 
- 
-	s, err := sub.New(subscriptionParams)
- 
- 
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		log.Printf("sub.New: %v", err)
-		return
-	}
- 
- 
-	writeJSON(w, s)
- }
  
  
  func handleCancelSubscription(w http.ResponseWriter, r *http.Request) {
