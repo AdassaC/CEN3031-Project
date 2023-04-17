@@ -1,4 +1,5 @@
-type Track struct {
+package main
+/*type Track struct {
 
 }
 
@@ -130,4 +131,4 @@ func getPlaylist(w http.ResponseWriter, r *http.Request) {
 	playlistName := vars["playlistName"]
 
 	fmt.Fprintf(w, "You've retrieved the playlist: %s\n", playlistName)
-}
+}*/
