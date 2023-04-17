@@ -1,3 +1,10 @@
 <p>this is the portion of stripe works!</p>
 
-<button (click)="addCustomer('Cameron Santiago')"> Click me </button>
+
+    <button (click)="addCustomer('kristannes@aol.com', '666-639-2839')"> Add Customer </button>
+
+    <button (click)="createSubscription('card_1Mxx78L5cDZvcnZ2NGSoOIi0', 'cus_NjSBVMF2ofGMVe', 'price_1Mgr7ZL5cDZvcnZ2yI7cvRMH')"> Add Subscription
+        
+    <button (click)="cancelSubscription('sub_1Mxxc4L5cDZvcnZ2QYbCi2lD')"> Change Subscription </button>
+
+    <button (click)="updateSubscription('sub_1MxyX6L5cDZvcnZ2dyUZAlqU', 'price_1MxyULL5cDZvcnZ2MXsMwWSn')"> Remove Subscription </button>

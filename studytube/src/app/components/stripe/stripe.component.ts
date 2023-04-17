@@ -12,10 +12,11 @@ export class StripeComponent {
     ) {
 
     }
-    addCustomer(customerName: string) {
+    addCustomer(customerName: string, phoneNumber: string) {
       console.log("This is the name of the Customer: " + customerName);
       this.stripeService.addCustomerToStripe(
         customerName,
+        phoneNumber,
       )
     }
     createSubscription(paymentID: string, customerID: string, priceID: string) {
