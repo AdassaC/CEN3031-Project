@@ -19,37 +19,6 @@ import (
  
  
  
- func handleCancelSubscription(w http.ResponseWriter, r *http.Request) {
-	if r.Method != "POST" {
-		http.Error(w, http.StatusText(http.StatusMethodNotAllowed), http.StatusMethodNotAllowed)
-		return
-	}
- 
- 
-	var req struct {
-		SubscriptionID string `json:"subscriptionId"`
-	}
- 
- 
-	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		log.Printf("json.NewDecoder.Decode: %v", err)
-		return
-	}
- 
- 
-	s, err := sub.Cancel(req.SubscriptionID, nil)
- 
- 
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		log.Printf("sub.Cancel: %v", err)
-		return
-	}
- 
- 
-	writeJSON(w, s)
- }
  
  
  func handleRetrieveUpcomingInvoice(w http.ResponseWriter, r *http.Request) {

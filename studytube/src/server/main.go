@@ -76,10 +76,11 @@ func httpHandler() http.Handler {
 	router.HandleFunc("/create-customer/name/{customerName}/phone/{phoneNumber}", handleCreateCustomer).Methods("POST")
 	router.HandleFunc("/retrieve-customer-payment-method", handleRetrieveCustomerPaymentMethod)
 	router.HandleFunc("/create-subscription/pay/{paymentMethodID}/customer/{customerID}/price/{priceID}", handleCreateSubscription)
-	
+	router.HandleFunc("/cancel-subscription/subscription/{subscriptionID}", handleCancelSubscription)
+
 	/*
 	
-	router.HandleFunc("/cancel-subscription", handleCancelSubscription)
+	
 	router.HandleFunc("/update-subscription", handleUpdateSubscription)
 	router.HandleFunc("/retry-invoice", handleRetryInvoice)
 	router.HandleFunc("/retrieve-upcoming-invoice", handleRetrieveUpcomingInvoice)
@@ -253,7 +254,27 @@ func writeJSON(w http.ResponseWriter, v interface{}) {
 	fmt.Print(s)
  }
  
+ func handleCancelSubscription(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	subscriptionID := vars["subscriptionID"]
 
+	if r.Method != "POST" {
+		http.Error(w, http.StatusText(http.StatusMethodNotAllowed), http.StatusMethodNotAllowed)
+		return
+	}
+	
+	s, err := sub.Cancel(subscriptionID, nil)
+ 
+ 
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		log.Printf("sub.Cancel: %v", err)
+		return
+	}
+ 
+ 
+	writeJSON(w, s)
+ }
 
 
 
