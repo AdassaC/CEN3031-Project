@@ -136,7 +136,7 @@ func helloWorld(w http.ResponseWriter, r *http.Request) {
 	return
 }
 
-// New getTasksByUserID also takes in a listname to account for seperate tasklists
+// new getTasksByUserID also takes in a listname to account for seperate tasklists
 func getTasksByUserID(userID string, listName string) ([]Task, error) {
 	//connect to the MongoDB server
 	client, err := mongo.Connect(context.TODO(), options.Client().ApplyURI("mongodb://localhost:27017"))
@@ -183,7 +183,7 @@ func getTasksByUserID(userID string, listName string) ([]Task, error) {
 		return nil, err
 	}
 
-	// Return the list of tasks
+	//return the list of tasks
 	return tasks, nil
 }
 
