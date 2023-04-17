@@ -20,8 +20,10 @@ import (
 
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
+	"github.com/stripe/stripe-go/v72/sub"
 	"github.com/stripe/stripe-go/v72"
 	"github.com/stripe/stripe-go/v72/customer"
+	"github.com/stripe/stripe-go/v72/paymentmethod"
 	/*"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"*/)
@@ -71,10 +73,12 @@ func httpHandler() http.Handler {
 	
 	// Stripe API Handlers
 	router.HandleFunc("/config", handleConfig).Methods("GET")
-	router.HandleFunc("/create-customer/name/{customerName}", handleCreateCustomer).Methods("POST")
-	/*
+	router.HandleFunc("/create-customer/name/{customerName}/phone/{phoneNumber}", handleCreateCustomer).Methods("POST")
 	router.HandleFunc("/retrieve-customer-payment-method", handleRetrieveCustomerPaymentMethod)
-	router.HandleFunc("/create-subscription", handleCreateSubscription)
+	router.HandleFunc("/create-subscription/pay/{paymentMethodID}/customer/{customerID}/price/{priceID}", handleCreateSubscription)
+	
+	/*
+	
 	router.HandleFunc("/cancel-subscription", handleCancelSubscription)
 	router.HandleFunc("/update-subscription", handleUpdateSubscription)
 	router.HandleFunc("/retry-invoice", handleRetryInvoice)
@@ -101,6 +105,68 @@ func httpHandler() http.Handler {
 		)(router))
 }
 
+
+func handleConfig(w http.ResponseWriter, r *http.Request) {
+	if r.Method != "GET" {
+		http.Error(w, http.StatusText(http.StatusMethodNotAllowed), http.StatusMethodNotAllowed)
+		return
+	}
+	writeJSON(w, struct {
+		PublishableKey string `json:"publishableKey"`
+	}{
+		//PublishableKey: os.Getenv("STRIPE_PUBLISHABLE_KEY"),
+		PublishableKey: "pk_test_51MgZiEL5cDZvcnZ2LMSspBkXaZ4A3DC6ED95PAPWqbOP5BXzEVLghH0rRCr2aPhvtVi4kuPoc1F5cdEmrXClNN4N00uemmQ75U",
+	})
+}
+
+
+func handleCreateCustomer(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	customerName := vars["customerName"] // use this as the email
+	phoneNumber := vars["phoneNumber"]
+
+	fmt.Print("We are inside of the create customer method")
+
+	if r.Method != "POST" {
+		http.Error(w, http.StatusText(http.StatusMethodNotAllowed), http.StatusMethodNotAllowed)
+		return
+	}
+
+	params := &stripe.CustomerParams{
+		Description: stripe.String("Stripe Developer"),
+		Email: stripe.String(customerName),
+		Phone: stripe.String(phoneNumber),
+	}
+
+	c, err := customer.New(params)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		log.Printf("customer.New: %v", err)
+		return
+	}
+	fmt.Print(c)
+}
+
+func handleRetrieveCustomerPaymentMethod(w http.ResponseWriter, r *http.Request) {
+	if r.Method != "POST" {
+		http.Error(w, http.StatusText(http.StatusMethodNotAllowed), http.StatusMethodNotAllowed)
+		return 
+	}
+	var req struct {
+		PaymentMethodID string `json:"paymentMethodId"`
+	}
+
+
+	pm, err := paymentmethod.Get(req.PaymentMethodID, nil)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		log.Printf("paymentmethod.Get: %v", err)
+		return
+	}
+
+	fmt.Print(pm)
+}
+
 func writeJSON(w http.ResponseWriter, v interface{}) {
 	var buf bytes.Buffer
 	if err := json.NewEncoder(&buf).Encode(v); err != nil {
@@ -115,61 +181,87 @@ func writeJSON(w http.ResponseWriter, v interface{}) {
 	}
  }
 
-
-func handleConfig(w http.ResponseWriter, r *http.Request) {
-	if r.Method != "GET" {
-		http.Error(w, http.StatusText(http.StatusMethodNotAllowed), http.StatusMethodNotAllowed)
-		return
-	}
-	writeJSON(w, struct {
-		PublishableKey string `json:"publishableKey"`
-	}{
-		//PublishableKey: os.Getenv("STRIPE_PUBLISHABLE_KEY"),
-		PublishableKey: "pk_test_51MgZiEL5cDZvcnZ2LMSspBkXaZ4A3DC6ED95PAPWqbOP5BXzEVLghH0rRCr2aPhvtVi4kuPoc1F5cdEmrXClNN4N00uemmQ75U",
-	})
- }
- 
- 
- func handleCreateCustomer(w http.ResponseWriter, r *http.Request) {
+ func handleCreateSubscription(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
-	customerName := vars["customerName"] // use this as the email
-
-	fmt.Print("We are inside of the create customer method")
+	paymentMethodID := vars["paymentMethodID"]
+	customerID := vars["customerID"] // use this as the email
+	priceID := vars["priceID"]
+	
 
 	if r.Method != "POST" {
 		http.Error(w, http.StatusText(http.StatusMethodNotAllowed), http.StatusMethodNotAllowed)
 		return
 	}
-	/*
-	var req struct {
-		Email string `json:"email"`
+ 
+	// Attach PaymentMethod
+	params := &stripe.PaymentMethodAttachParams{
+		Customer: stripe.String(customerID),
 	}
-	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		log.Printf("json.NewDecoder.Decode: %v", err)
+	pm, err := paymentmethod.Attach(
+		paymentMethodID,
+		params,
+	)
+	if err != nil {
+		writeJSON(w, struct {
+			Error error `json:"error"`
+		}{err})
 		return
-	} */
- 
-	
-	params := &stripe.CustomerParams{
-		Description: stripe.String("Stripe Developer"),
-		Email: stripe.String(customerName),
 	}
  
-	c, err := customer.New(params)
+ 
+	// Update invoice settings default
+	customerParams := &stripe.CustomerParams{
+		InvoiceSettings: &stripe.CustomerInvoiceSettingsParams{
+			DefaultPaymentMethod: stripe.String(pm.ID),
+		},
+	}
+	c, err := customer.Update(
+		customerID,
+		customerParams,
+	)
+ 
+ 
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
-		log.Printf("customer.New: %v", err)
+		log.Printf("customer.Update: %v %s", err, c.ID)
 		return
 	}
-	fmt.Print(c)
-	// writeJSON(w, struct {
-	// 	Customer *stripe.Customer `json:"customer"`
-	// }{
-	// 	Customer: c,
-	// }) 
+ 
+ 
+	// Create subscription
+	subscriptionParams := &stripe.SubscriptionParams{
+		Customer: stripe.String(customerID),
+		Items: []*stripe.SubscriptionItemsParams{
+			{
+				Price: stripe.String(priceID),
+			},
+		},
+	}
+	subscriptionParams.AddExpand("latest_invoice.payment_intent")
+	subscriptionParams.AddExpand("pending_setup_intent")
+ 
+ 
+	s, err := sub.New(subscriptionParams)
+  
+ 
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		log.Printf("sub.New: %v", err)
+		return
+	}
 
+	fmt.Print(s)
  }
+ 
+
+
+
+
+
+
+
+
+
 
 
 type Track struct {
