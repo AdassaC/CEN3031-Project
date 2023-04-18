@@ -21,28 +21,37 @@ export class SpotifyService {
   constructor(private http: HttpClient) {}
 
   addTrackToPlaylist(track : Track, playlistName: string) {
-    return this.http.post(this.api + "books", track)  //<Book>(this.api + "books", book)
+    return this.http.post(this.api + "addplaylist/" + playlistName + "/title/" + track.title + "/artist/" + track.artist + "/trackURL/" + track.url, track) 
     .subscribe((res) => {
       console.log(res);
     });
   }
 
   removeTrackFromPlaylist(track : Track, playlistName: string) {
-
+    return this.http.post(this.api + "removetrack/" + playlistName + "/title/" + track.title + "/artist/" + track.artist, track) 
+    .subscribe((res) => {
+      console.log(res);
+    });
   }
 
   updateTrackOnPlaylist(track: Track, playlistName: string, newSongName: string, newArtistName: string, newURL: string) {
-
+    return this.http.post(this.api + "updatetrack/" + playlistName + "/title/" + track.title + "/artist/" + track.artist + "/newSong/" + newSongName + "/newArtist/" + newArtistName + "/newURL/" + newURL, track) 
+    .subscribe((res) => {
+      console.log(res);
+    });
   }
 
   createPlaylist(playlistName: string) {
-    return this.http.post(this.api + "books", playlistName)  //<Book>(this.api + "books", book)
+    return this.http.post(this.api + "createPlaylist/" + playlistName, playlistName)  //<Book>(this.api + "books", book)
     .subscribe((res) => {
       console.log(res);
     });
   }
 
   getPlaylist(playlistName: string) { 
-
+      return this.http.get(this.api + "getPlaylist/" + playlistName)
+      .subscribe((res) => {
+        console.log(res);
+      });
   }
 }
