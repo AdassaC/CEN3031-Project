@@ -22,7 +22,7 @@ import { PlaylistGeneratorComponent } from './components/playlist-generator/play
 import { SettingsComponent } from './components/settings/settings.component';
 import { ListsComponent } from './components/lists/lists.component';
 import { TodoComponent } from './components/todo/todo.component';
-import { StripeComponent } from './components/stripe/stripe.component';
+import { StripeComponent } from './components/stripeSubcription/stripe/stripe.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },

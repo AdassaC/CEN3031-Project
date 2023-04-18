@@ -36,7 +36,7 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
 import { SpotifyPlayerComponent } from './components/spotify-player/spotify-player.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SpotifyComponent } from './components/spotify/spotify.component';
-import { StripeComponent } from './components/stripe/stripe.component';
+import { StripeComponent } from './components/stripeSubcription/stripe/stripe.component';
 import { TaskViewComponent } from './tasksManager/task-view/task-view.component';
 import { NewListComponent } from './tasksManager/new-list/new-list.component';
 import { TodoComponent } from './components/todo/todo.component';
