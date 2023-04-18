@@ -41,8 +41,8 @@ export class SpotifyService {
     });
   }
 
-  createPlaylist(playlistName: string) {
-    return this.http.post(this.api + "createPlaylist/" + playlistName, playlistName)  //<Book>(this.api + "books", book)
+  createPlaylist(playlistName: string, userID: string) {
+    return this.http.post(this.api + "createPlaylist/" + playlistName + "/" + userID, playlistName)  //<Book>(this.api + "books", book)
     .subscribe((res) => {
       console.log(res);
     });

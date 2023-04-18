@@ -60,10 +60,10 @@ func httpHandler() http.Handler {
 
 	
 	// Spotify helper functions in Go 
+	router.HandleFunc("/createPlaylist/{playlistName}/{userID}", addPlaylist).Methods("POST")
 	router.HandleFunc("/addsong/{playlistName}/title/{songName}/artist/{artist}/trackURL/{url}", addSongToSpotifyPlaylist).Methods("POST")
 	router.HandleFunc("/removetrack/{playlistName}/title/{songName}/artist/{artist}", removeSongFromPlaylist).Methods("POST")
 	router.HandleFunc("/updatetrack/{playlistName}/title/{songName}/artist/{artist}/newSong/{newSongName}/newArtist/{newArtistName}/newURL/{updatedURL}", updateSongFromPlaylist).Methods("POST")
-	router.HandleFunc("/createPlaylist/{playlistName}", addPlaylist).Methods("POST")
 	router.HandleFunc("/getPlaylist/{playlistName}/{userID}", getPlaylist).Methods("GET")
 	
 	

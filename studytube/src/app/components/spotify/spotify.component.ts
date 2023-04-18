@@ -45,14 +45,14 @@ export class SpotifyComponent {
         updatedSongName, updatedArtistName, updatedURL)
      }
 
-     createPlaylist(playlistName: string) {
-      this.spotifyService.createPlaylist(playlistName);
+     createPlaylist(playlistName: string, userID: string) {
+      this.spotifyService.createPlaylist(playlistName, userID);
      }
 
      getPlaylist(playlistName: string) {
-      this.spotifyService.getPlaylist(playlistName).unsubscribe((products) => {
+      /*this.spotifyService.getPlaylist(playlistName).unsubscribe((products) => {
         this.playlist = products
-      });
+      });*/
         /*this.spotifyService.getPlaylist(playlistName).subscribe(res => {
           this.playlist = res; 
         });*/
