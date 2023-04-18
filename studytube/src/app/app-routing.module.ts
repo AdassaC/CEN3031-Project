@@ -5,7 +5,7 @@ import { RegisterComponent } from './components/register/register.component';
 
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { DashboardComponent } from './components/dashboardComponents/dashboard/dashboard.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
 // route guard
@@ -18,11 +18,11 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { TaskViewComponent } from './tasksManager/task-view/task-view.component';
 import { NewListComponent } from './tasksManager/new-list/new-list.component';
-import { PlaylistGeneratorComponent } from './components/playlist-generator/playlist-generator.component';
+import { PlaylistGeneratorComponent } from './components/dashboardComponents/playlist-generator/playlist-generator.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { ListsComponent } from './components/lists/lists.component';
 import { TodoComponent } from './components/todo/todo.component';
-import { StripeComponent } from './components/stripeSubcription/stripe/stripe.component';
+import { StripeComponent } from './components/dashboardComponents/stripeSubcription/stripe/stripe.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },

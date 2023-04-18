@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SpotifyPlayerComponent } from '../spotify-player/spotify-player.component';
+import { SpotifyPlayerComponent } from '../../spotify-player/spotify-player.component';
 import { NgModule } from '@angular/core';
 import { AuthService } from 'src/app/shared/services/auth';
 

@@ -13,7 +13,7 @@
 <body></body>
     <section class="playlistGenerator">
         <div >
-            <form [formGroup]="playlistForm" (ngSubmit)="onSubmit()">
+            <form [formGroup]="playlistForm">
                 <h2>Create a Playlist</h2>
                 <label for="playlist-name">PLAYLIST NAME </label>
                 <input id="playlist-name" type="playlistName" placeholder= "''My New Playlist''" formControlName="playlistName">
@@ -44,5 +44,3 @@
         </div>
     </section>
 </html>
-
-<!--<p>Complete the form to enable button.</p>--->
