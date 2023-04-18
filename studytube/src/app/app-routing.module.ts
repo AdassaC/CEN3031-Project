@@ -22,6 +22,7 @@ import { PlaylistGeneratorComponent } from './components/playlist-generator/play
 import { SettingsComponent } from './components/settings/settings.component';
 import { ListsComponent } from './components/lists/lists.component';
 import { TodoComponent } from './components/todo/todo.component';
+import { StripeComponent } from './components/stripe/stripe.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -50,7 +51,8 @@ const routes: Routes = [
 
   { path: 'lists', component: ListsComponent},
   { path: 'todo', component: TodoComponent},
-  { path: 'settings', component: SettingsComponent}
+  { path: 'settings', component: SettingsComponent},
+  { path: 'stripe', component: StripeComponent}
 
   //Gonna have to change to include user id in path
 ];
