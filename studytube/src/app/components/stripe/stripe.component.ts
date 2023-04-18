@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { StripeService } from 'src/app/stripe.service';
+import { AuthService } from 'src/app/shared/services/auth';
 
 @Component({
   selector: 'app-stripe',
@@ -7,8 +8,11 @@ import { StripeService } from 'src/app/stripe.service';
   styleUrls: ['./stripe.component.css']
 })
 export class StripeComponent {
+
+  ngOnInit(): void {}
     constructor(
       private stripeService: StripeService,
+      public authService: AuthService
     ) {
 
     }
@@ -38,5 +42,4 @@ export class StripeComponent {
         priceID
       )
     }
-
 }
