@@ -273,6 +273,11 @@ body {
 }
 
 /* MAIN */
+
+.user_stripe {
+
+}
+
 #content main {
 	width: 100%;
 	padding: 36px 24px;
@@ -321,9 +326,6 @@ body {
 	grid-gap: 10px;
 	font-weight: 500;
 }
-
-
-
 
 #content main .box-info {
 	display: grid;
