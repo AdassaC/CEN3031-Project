@@ -3,11 +3,13 @@ import { FormControl, FormGroup, FormBuilder, FormArray, Form } from '@angular/f
 import { Validators } from '@angular/forms';
 import { MAT_FORM_FIELD, MatFormField, MatFormFieldControl } from '@angular/material/form-field';
 import { EventEmitter, Output } from '@angular/core';
+import { SpotifyService } from 'src/app/spotify.service';
+import { AuthService } from 'src/app/shared/services/auth';
 
 @Component({
   selector: 'app-playlist-generator',
   templateUrl: './playlist-generator.component.html',
-  styleUrls: ['./playlist-generator.component.css']
+  styleUrls: ['./playlist-generator.component.css', '../dashboard.scss']
 })
 
 export class PlaylistGeneratorComponent {
@@ -25,7 +27,7 @@ export class PlaylistGeneratorComponent {
     ])
   });
   
-  constructor(public fb: FormBuilder) {}
+  constructor(public authService: AuthService, private spotifyService : SpotifyService, public fb: FormBuilder) {}
 
   get userGenres() {
     return this.playlistForm.get('userGenres') as FormArray;

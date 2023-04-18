@@ -5,7 +5,7 @@ import { AuthService } from 'src/app/shared/services/auth';
 @Component({
   selector: 'app-stripe',
   templateUrl: './stripe.component.html',
-  styleUrls: ['./stripe.component.css']
+  styleUrls: ['./stripe.component.css', '../../dashboard.scss']
 })
 export class StripeComponent {
 

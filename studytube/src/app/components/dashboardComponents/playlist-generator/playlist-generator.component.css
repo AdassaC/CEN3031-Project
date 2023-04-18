@@ -1,7 +1,11 @@
 body {
     font-family: 'Nunito', sans-serif;
     color: #384047;
-  }
+}
+
+h1 {
+    display: flex;
+}
   
 form {
     max-height: 800px;
