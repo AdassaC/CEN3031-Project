@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 export interface PlayList {
   playlistTitle: string; 
@@ -49,9 +49,15 @@ export class SpotifyService {
   }
 
   getPlaylist(playlistName: string) { 
-      return this.http.get(this.api + "getPlaylist/" + playlistName)
-      .subscribe((res) => {
-        console.log(res);
-      });
+      return this.http.get<{[key: string]: PlayList}>(this.api + "getPlaylist/" + playlistName)
+      .pipe(map((res) => {
+        const products = [];
+        for (const key in res) {
+          if (res.hasOwnProperty(key)) {
+            products.push(res[key])
+          }
+        }
+        return products;
+      }))
   }
 }
