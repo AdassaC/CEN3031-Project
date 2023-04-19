@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <!-- Box Icons-->
     <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
-    <title>User Settings > Update Subscription</title>
+    <title>User Settings > Add Subscription</title>
 </head>
 <body>
     <section id="sidebar">
@@ -103,7 +103,7 @@
 						</li>
                         <i class='bx bx-chevron-right' ></i>
                         <li>
-							<a class="active" href="./subscribe">Update Subscription</a>
+							<a class="active" href="./subscribe">Add Subscription</a>
 						</li>
 					</ul>
 				</div>
@@ -113,18 +113,14 @@
 				
 			</ul>
 
-            <div class="subscribe_form">
+            <h2 class="subheader">
+				Add Subscription
+			</h2>
+            <div class="subscribe_form">            
                 <div class="field">
-                    <label class="label left">Name</label>
-                    <div class="control">
-                    <input class="input" type="text" placeholder="Enter your name" #name>
-                    </div>
-                </div>
-                
-                <div class="field">
-                    <label class="label left">Email</label>
+                    <label class="label left">Card Number </label>
                     <div class="control has-icons-right">
-                    <input class="input" type="email" placeholder="Enter a valid email" #userEmail>
+                    <input class="input" type="cardnumber" placeholder="Enter a valid card number" >
                     <span class="icon is-small is-left">
                         <i class="fas fa-envelope"></i>
                     </span>
@@ -137,31 +133,46 @@
             
                 <div class="field">
                     <div class="field-label"></div>
-                    <label class="label left">Phone</label>
+                    <label class="label left">Cardholder Name</label>
                     <div class="field-body">
                     <div class="field is-expanded">
                         <div class="field has-addons">
                         <p class="control">
-                            <a class="button is-static">
-                            +
-                            </a>
                         </p>
                         <p class="control is-expanded">
-                            <input class="input" type="tel" placeholder="Your phone number" #userPhone>
+                            <input class="input" type="name" placeholder="Your phone number">
                         </p>
                         </div>
-                        <p class="help">Do not enter the first zero</p>
                     </div>
                     </div>
                 </div>
-            
+
                 <div class="field">
-                    <div class="control">
-                    <label class="checkbox left">
-                        <input type="checkbox" required>
-                        I agree to the <a href="https://stripe.com/legal/ssa">terms and conditions</a>
-                    </label>
+                    <label class="label left">Expiration Date </label>
+                    <div class="control has-icons-right">
+                    <input class="input" type="expiration" placeholder="MM / YYYY">
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-envelope"></i>
+                    </span>
+                    <span class="icon is-small is-right">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </span>
                     </div>
+                    <!--<p class="help is-danger">This email is invalid</p>-->
+                </div>
+
+                <div class="field">
+                    <label class="label left">Securit Code </label>
+                    <div class="control has-icons-right">
+                    <input class="input" type="code" placeholder="CVC" >
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-envelope"></i>
+                    </span>
+                    <span class="icon is-small is-right">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </span>
+                    </div>
+                    <!--<p class="help is-danger">This email is invalid</p>-->
                 </div>
 
                 <div>
@@ -170,9 +181,9 @@
 
                 <div class="field is-grouped">
                     <div class="control">
-                    	<button class="button is-link" (click)="addCustomer(userEmail.value, userPhone.value)">
+                    	<button class="button is-link" (click)="createSubscription('card_1Mxx78L5cDZvcnZ2NGSoOIi0', 'cus_NjSBVMF2ofGMVe', 'price_1Mgr7ZL5cDZvcnZ2yI7cvRMH')">
 							<a class = "submit" href="./settings">
-								Become a Member
+								Confirm Subscription
 							</a>
 						</button>
                     </div>

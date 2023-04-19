@@ -25,3 +25,10 @@ h1{
 .submit {
 	color: white;
 }
+.subheader {
+	display: inline;
+    font-size: revert;
+    font-weight: bold;
+	text-align: initial;
+	margin-bottom: 5px;
+}

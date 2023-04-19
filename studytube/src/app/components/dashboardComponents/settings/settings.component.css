@@ -540,3 +540,29 @@ body {
 		min-width: 420px;
 	}
 }
+.user-profile {
+	margin-bottom: 10px;
+	border-radius: 5px;
+	padding: 10px;
+}
+.user-stripe {
+	background-color: rgba(177, 216, 255, 0.703);
+	margin-bottom: 10px;
+	border-radius: 5px;
+	padding: 10px;
+}
+.settings-subheader {
+	text-align: initial;
+	margin-bottom: 5px;
+}
+.stripe-info {
+	margin: 5px;
+	border-radius: 5px;
+	padding: 5px;
+	background-color: #f9faff;
+    border-color: transparent;
+	max-width: fit-content;
+}
+.stripe-text {
+	color: #403029;
+}

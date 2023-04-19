@@ -22,6 +22,7 @@ export class StripeComponent {
         customerName,
         phoneNumber,
       )
+      alert("Membership has been create.");
     }
     createSubscription(paymentID: string, customerID: string, priceID: string) {
       this.stripeService.createSubscriptionToStripe(

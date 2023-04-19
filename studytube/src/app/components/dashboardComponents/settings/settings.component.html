@@ -109,7 +109,10 @@
 			</ul>
 
 
-			<div class="user-profile">        
+			<div class="user-profile">   
+				<h2 class="settings-subheader">
+					User Information
+				</h2>     
                 <div class="row" *ngIf="authService.userData as user" >
                     <!--<h1>Hello: <strong>{{(user.displayName) ? user.displayName : 'User'}}</strong></h1>-->
                     <p>User ID: <strong>{{user.uid}}</strong></p>
@@ -119,12 +122,28 @@
             </div>
 
 			<div class = "user-stripe">
-				<p>
-					<!--<a href="./stripe">Become a Premium Member</a>-->
-				</p>
-				<p>
-					<a href="./subscribe">Update Subscription</a>
-				</p>
+				<h2 class="settings-subheader">
+					Manage Subscription
+				</h2>
+				<div class="stripe-info">
+					<p class="stripe-text">
+						<a class="stripe-text" href="./stripe">Become a Premium Member</a>
+					</p>
+				</div>
+				
+				<div class="stripe-info">
+					<p class="stripe-text">
+						<a class="stripe-text" href="./subscribe">Add a Subscription</a>
+					</p>
+				</div>
+
+				<div class="stripe-info">
+					<p class="stripe-text">
+						<a class="stripe-text" href="./settings" (click)="cancelSubscription('sub_1Mxxc4L5cDZvcnZ2QYbCi2lD')">
+							Cancel Subscription
+						</a>
+					</p>
+				</div>
 			</div>
 
 		</main>

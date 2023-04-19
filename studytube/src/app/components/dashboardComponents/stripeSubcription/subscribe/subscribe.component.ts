@@ -28,6 +28,7 @@ export class SubscribeComponent {
       customerID, 
       priceID
     )
+    alert("Subscription has been added to your account.");
   }
   cancelSubscription(subscriptionID: string) {
       this.stripeService.cancelSubscriptionToStripe(
