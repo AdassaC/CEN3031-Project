@@ -49,6 +49,6 @@ export class SpotifyService {
   }
 
   getPlaylist(playlistName: string) : Observable<PlayList[]> {
-    return this.http.post<PlayList[]>(this.api + "getPlaylist/" + playlistName, playlistName);
+    return this.http.get<PlayList[]>("http://localhost:4201/" + "getPlaylist/" + playlistName);
   }
 }

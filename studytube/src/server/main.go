@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
@@ -9,12 +10,13 @@ import (
 	"net/url"
 	"os"
 
-	"github.com/adassacoimin/CEN3031-Project/studytube/src/server/utils"
+	//"github.com/adassacoimin/CEN3031-Project/studytube/src/server/utils"
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
+	//"google.golang.org/genproto/googleapis/iam/credentials/v1"
 )
 
 type Song struct{
@@ -32,14 +34,41 @@ type Playlist struct{
 func main() {
 
 	fmt.Print("inside of main.go")
-	host := "127.0.0.1:4201" // may be 4201
-	//host := "http://localhost:4201"
+	host := "127.0.0.1:4201" 
+
+	// if err := http.ListenAndServe(host, httpHandler()); err != nil {
+	// 	fmt.Print("Failed to listen to " + host)
+	// 	log.Fatalf("Failed to listen on %s: %v", host, err)
+	// } else {
+	// 	fmt.Print("Listening to " + host)
+	//}
 	if err := http.ListenAndServe(host, httpHandler()); err != nil {
 		fmt.Print("Failed to listen to " + host)
 		log.Fatalf("Failed to listen on %s: %v", host, err)
 	} else {
 		fmt.Print("Listening to " + host)
 	}
+	router := mux.NewRouter()
+
+	
+	// Spotify helper functions in Go 
+	router.HandleFunc("/createPlaylist/{playlistName}/{userID}", addPlaylist).Methods("POST")
+	router.HandleFunc("/addsong/{playlistName}/title/{songName}/artist/{artist}/trackURL/{url}", addSongToSpotifyPlaylist).Methods("POST")
+	router.HandleFunc("/removetrack/{playlistName}/title/{songName}/artist/{artist}", removeSongFromPlaylist).Methods("POST")
+	router.HandleFunc("/updatetrack/{playlistName}/title/{songName}/artist/{artist}/newSong/{newSongName}/newArtist/{newArtistName}/newURL/{updatedURL}", updateSongFromPlaylist).Methods("POST")
+	router.HandleFunc("/getPlaylist/{playlistName}/{userID}", getPlaylist).Methods("POST")
+	
+	
+	// WARNING: this route must be the last route defined.
+
+	router.PathPrefix("/").Handler(AngularHandler).Methods("GET")
+
+
+	credentials := handlers.AllowCredentials()
+	methods := handlers.AllowedMethods([]string{"POST", "GET", "OPTIONS"})
+    //ttl := handlers.MaxAge(3600)
+    origins := handlers.AllowedOrigins([]string{"http://localhost:4200"})
+    log.Fatal(http.ListenAndServe(":4201", handlers.CORS(credentials, methods, origins)(router)))
 
 	//DB testing section
 	client, err := mongo.Connect(context.TODO(), options.Client().ApplyURI("mongodb://localhost:27017"))
@@ -64,14 +93,13 @@ func httpHandler() http.Handler {
 	router.HandleFunc("/addsong/{playlistName}/title/{songName}/artist/{artist}/trackURL/{url}", addSongToSpotifyPlaylist).Methods("POST")
 	router.HandleFunc("/removetrack/{playlistName}/title/{songName}/artist/{artist}", removeSongFromPlaylist).Methods("POST")
 	router.HandleFunc("/updatetrack/{playlistName}/title/{songName}/artist/{artist}/newSong/{newSongName}/newArtist/{newArtistName}/newURL/{updatedURL}", updateSongFromPlaylist).Methods("POST")
-	router.HandleFunc("/getPlaylist/{playlistName}/{userID}", getPlaylist).Methods("POST")
+	router.HandleFunc("/getPlaylist/{playlistName}/{userID}", getPlaylist).Methods("GET")
 	
 	
 	// WARNING: this route must be the last route defined.
 
 	router.PathPrefix("/").Handler(AngularHandler).Methods("GET")
 
-	 
 	return handlers.LoggingHandler(os.Stdout,
 		handlers.CORS(
 			handlers.AllowCredentials(),
@@ -344,6 +372,8 @@ func deletePlaylist(w http.ResponseWriter, r *http.Request) {
 }
 
 func getPlaylist(w http.ResponseWriter, r *http.Request) {
+
+	
 	vars := mux.Vars(r)
 	playlistName := vars["playlistName"]
 	userID := vars["userID"]
@@ -373,13 +403,12 @@ func getPlaylist(w http.ResponseWriter, r *http.Request) {
     var playlist []Playlist
     err = cursor.All(context.Background(), &playlist)
 
-    //put task into JSON for transfer
-    jsonBytes, err := utils.StructToJSON(playlist)
-    if err != nil {
-    }
-
-    //set content type to json
-    fmt.Println(jsonBytes)
+    err = json.NewEncoder(w).Encode(playlist)
+	if err != nil {
+		
+	}
+    
+    
 
 }
 
@@ -395,7 +424,7 @@ var director = func(req *http.Request) {
 	req.Header.Add("X-Origin-Host", origin.Host)
 	req.URL.Scheme = "http"
 	req.URL.Host = origin.Host
-}
+} 
 
 // AngularHandler loads angular assets
 var AngularHandler = &httputil.ReverseProxy{Director: director}
