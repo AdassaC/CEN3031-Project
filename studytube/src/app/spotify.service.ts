@@ -48,16 +48,7 @@ export class SpotifyService {
     });
   }
 
-  getPlaylist(playlistName: string) { 
-      return this.http.get<{[key: string]: PlayList}>(this.api + "getPlaylist/" + playlistName)
-      .pipe(map((res) => {
-        const products = [];
-        for (const key in res) {
-          if (res.hasOwnProperty(key)) {
-            products.push(res[key])
-          }
-        }
-        return products;
-      }))
+  getPlaylist(playlistName: string) : Observable<PlayList[]> {
+    return this.http.post<PlayList[]>(this.api + "getPlaylist/" + playlistName, playlistName);
   }
 }

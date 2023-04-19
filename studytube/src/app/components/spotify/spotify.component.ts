@@ -50,6 +50,8 @@ export class SpotifyComponent {
      }
 
      getPlaylist(playlistName: string) {
+      this.spotifyService.getPlaylist(playlistName)
+      .subscribe(thePlaylists => this.playlist = thePlaylists)
       /*this.spotifyService.getPlaylist(playlistName).unsubscribe((products) => {
         this.playlist = products
       });*/

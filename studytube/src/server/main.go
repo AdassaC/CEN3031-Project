@@ -64,7 +64,7 @@ func httpHandler() http.Handler {
 	router.HandleFunc("/addsong/{playlistName}/title/{songName}/artist/{artist}/trackURL/{url}", addSongToSpotifyPlaylist).Methods("POST")
 	router.HandleFunc("/removetrack/{playlistName}/title/{songName}/artist/{artist}", removeSongFromPlaylist).Methods("POST")
 	router.HandleFunc("/updatetrack/{playlistName}/title/{songName}/artist/{artist}/newSong/{newSongName}/newArtist/{newArtistName}/newURL/{updatedURL}", updateSongFromPlaylist).Methods("POST")
-	router.HandleFunc("/getPlaylist/{playlistName}/{userID}", getPlaylist).Methods("GET")
+	router.HandleFunc("/getPlaylist/{playlistName}/{userID}", getPlaylist).Methods("POST")
 	
 	
 	// WARNING: this route must be the last route defined.
