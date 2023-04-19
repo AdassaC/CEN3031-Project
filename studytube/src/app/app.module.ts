@@ -41,8 +41,9 @@ import { TaskViewComponent } from './tasksManager/task-view/task-view.component'
 import { NewListComponent } from './tasksManager/new-list/new-list.component';
 import { TodoComponent } from './components/todo/todo.component';
 import { PlaylistGeneratorComponent } from './components/dashboardComponents/playlist-generator/playlist-generator.component';
-import { ListsComponent } from './components/lists/lists.component';
+import { ListsComponent } from './components/dashboardComponents/lists/lists.component';
 import { SettingsComponent } from './components/settings/settings.component';
+import { SubscribeComponent } from './components/dashboardComponents/stripeSubcription/subscribe/subscribe.component';
 
 
 @NgModule({
@@ -68,7 +69,8 @@ import { SettingsComponent } from './components/settings/settings.component';
     TodoComponent,
     PlaylistGeneratorComponent,
     ListsComponent,
-    SettingsComponent
+    SettingsComponent,
+    SubscribeComponent
   ],
 
   imports: [

@@ -274,8 +274,9 @@ body {
 
 /* MAIN */
 
-.user_stripe {
-
+.user-profile {
+	background:rgba(177, 216, 255, 0.703);
+	
 }
 
 #content main {
