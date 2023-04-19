@@ -19,7 +19,7 @@ import { FooterComponent } from './shared/footer/footer.component';
 import { TaskViewComponent } from './tasksManager/task-view/task-view.component';
 import { NewListComponent } from './tasksManager/new-list/new-list.component';
 import { PlaylistGeneratorComponent } from './components/dashboardComponents/playlist-generator/playlist-generator.component';
-import { SettingsComponent } from './components/settings/settings.component';
+import { SettingsComponent } from './components/dashboardComponents/settings/settings.component';
 import { ListsComponent } from './components/dashboardComponents/lists/lists.component';
 import { TodoComponent } from './components/todo/todo.component';
 import { StripeComponent } from './components/dashboardComponents/stripeSubcription/stripe/stripe.component';

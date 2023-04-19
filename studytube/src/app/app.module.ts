@@ -42,7 +42,7 @@ import { NewListComponent } from './tasksManager/new-list/new-list.component';
 import { TodoComponent } from './components/todo/todo.component';
 import { PlaylistGeneratorComponent } from './components/dashboardComponents/playlist-generator/playlist-generator.component';
 import { ListsComponent } from './components/dashboardComponents/lists/lists.component';
-import { SettingsComponent } from './components/settings/settings.component';
+import { SettingsComponent } from './components/dashboardComponents/settings/settings.component';
 import { SubscribeComponent } from './components/dashboardComponents/stripeSubcription/subscribe/subscribe.component';
 
 
