@@ -23,6 +23,7 @@ import { SettingsComponent } from './components/settings/settings.component';
 import { ListsComponent } from './components/dashboardComponents/lists/lists.component';
 import { TodoComponent } from './components/todo/todo.component';
 import { StripeComponent } from './components/dashboardComponents/stripeSubcription/stripe/stripe.component';
+import { SubscribeComponent } from './components/dashboardComponents/stripeSubcription/subscribe/subscribe.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -52,7 +53,8 @@ const routes: Routes = [
   { path: 'lists', component: ListsComponent},
   { path: 'todo', component: TodoComponent},
   { path: 'settings', component: SettingsComponent},
-  { path: 'stripe', component: StripeComponent}
+  { path: 'stripe', component: StripeComponent},
+  { path: 'subscribe', component: SubscribeComponent}
 
   //Gonna have to change to include user id in path
 ];

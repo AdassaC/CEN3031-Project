@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <!-- Box Icons-->
     <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
-    <title>User Settings > Stripe</title>
+    <title>User Settings > Update Subscription</title>
 </head>
 <body>
     <section id="sidebar">
@@ -103,7 +103,7 @@
 						</li>
                         <i class='bx bx-chevron-right' ></i>
                         <li>
-							<a class="active" href="./stripe">Stripe</a>
+							<a class="active" href="./subscribe">Update Subscription</a>
 						</li>
 					</ul>
 				</div>
@@ -113,18 +113,18 @@
 				
 			</ul>
 
-            <div class="stripe_form">
+            <div class="subscribe_form">
                 <div class="field">
                     <label class="label left">Name</label>
                     <div class="control">
-                    <input class="input" type="text" placeholder="Text input" #name>
+                    <input class="input" type="text" placeholder="Enter your name" #name>
                     </div>
                 </div>
                 
                 <div class="field">
                     <label class="label left">Email</label>
-                    <div class="control has-icons-left has-icons-right">
-                    <input class="input is-danger" type="email" placeholder="Email input" #userEmail>
+                    <div class="control has-icons-right">
+                    <input class="input" type="email" placeholder="Enter a valid email" #userEmail>
                     <span class="icon is-small is-left">
                         <i class="fas fa-envelope"></i>
                     </span>
@@ -171,13 +171,17 @@
                 <div class="field is-grouped">
                     <div class="control">
                     	<button class="button is-link" (click)="addCustomer(userEmail.value, userPhone.value)">
-							<a href="./settings">
-								Submit
+							<a class = "submit" href="./settings">
+								Become a Member
 							</a>
 						</button>
                     </div>
                     <div class="control">
-                    <button class="button is-link is-light">Cancel</button>
+						<button class="button is-link is-light">
+							<a class = "" href="./settings">
+								Cancel
+							</a>
+						</button>
                     </div>
                 </div>
             </div>
