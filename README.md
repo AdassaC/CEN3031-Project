@@ -1,4 +1,6 @@
 # StudyTube
+<img src="./studytube/src/assets/images/logo.png" width="250" height="250">
+
 ## Table of Contents
 * [Description](#description)
 * [Group Members](#group-members)
