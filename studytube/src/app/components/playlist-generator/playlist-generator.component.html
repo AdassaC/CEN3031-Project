@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<header>
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- Box Icons-->
@@ -8,9 +8,9 @@
   <!-- CSS -->
   <link rel="stylesheet" href="playlist-generator.component.css">
   <title>Playlist Generator</title>
-</header>
-<app-navbar></app-navbar>
-<body></body>
+</head>
+<!--<app-navbar></app-navbar>-->
+<body>
     <section class="playlistGenerator">
         <div >
             <form [formGroup]="playlistForm" (ngSubmit)="onSubmit()">
@@ -43,6 +43,7 @@
             </form>
         </div>
     </section>
+    </body>
 </html>
 
 <!--<p>Complete the form to enable button.</p>--->

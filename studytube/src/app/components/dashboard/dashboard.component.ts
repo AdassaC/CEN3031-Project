@@ -10,7 +10,7 @@ import { AuthService } from 'src/app/shared/services/auth';
 })
 
 export class DashboardComponent implements OnInit {
-  title = 'User Profile';
+  title = 'Dashboard';
   constructor(public authService: AuthService) {}
   ngOnInit(): void {}
 };

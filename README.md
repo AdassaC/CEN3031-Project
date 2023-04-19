@@ -19,6 +19,7 @@ The goal of this project is to establish a task manager with a spotify API compo
 * Angular 15.1.2
 * Go 1.19.5
 * Firebase 9.8.0
+* Karma 6.4.1
 
 ## Setup
 After cloning the git repo to your local machine, change into the studytube folder
@@ -30,7 +31,8 @@ and run the followimg commands
 npm install
 npm start
 ```
+This will start the live server that allows you to run the website on a localhost.
 
 ## Features
-* Create a new user account and login to an existing account
+* Create a new user account using an email address, Google account, or Facebook account and login to an existing account
 * ...

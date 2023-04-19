@@ -33,6 +33,6 @@ describe('RegisterComponent', () => {
     const fixture = TestBed.createComponent(RegisterComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Sign In');
+    expect(compiled.querySelector('h1').textContent).toContain('Sign Up');
   });
 });
