@@ -6,10 +6,10 @@
 
         <div class="name-field field has-addons">
             <div class="control">
-              <input class="input is-medium" type="text" placeholder="Enter list name">
+              <input class="input is-medium" type="text" placeholder="Enter list name" #title>
             </div>
             <div class="control">
-              <a class="button is-primary is-medium">
+              <a href="./lists" class="button is-primary is-medium" (click)="createList(title.value)">
                 Create
               </a>
             </div>

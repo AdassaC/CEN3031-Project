@@ -537,3 +537,26 @@ body {
 		min-width: 420px;
 	}
 }
+
+.generate {
+    color: white;
+}
+.update {
+    max-width: fit-content;
+    background-color: #2703a6;
+}
+.butn {
+    max-width: fit-content;
+    background-color:#18368a;
+    padding: 10px 39px 10px 39px;
+    color: #FFF;
+    font-size: 18px;
+    text-align: center;
+    font-style: normal;
+    border-radius: 5px;
+    width: 50%;
+    border: none;
+    border-width: 1px 1px 3px;
+    box-shadow: 0 -1px 0 rgba(255,255,255,0.1) inset;
+    margin-bottom: 10px;
+}

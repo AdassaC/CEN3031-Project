@@ -3,7 +3,7 @@
 /*https://bulma.io/documentation/form/general*/
 
 .modal-box {
-    min-height: 200px;
+    min-width: fit-content;
     width: 100%;
     max-width: 580px;
     background: rgba(177, 216, 255, 0.703);

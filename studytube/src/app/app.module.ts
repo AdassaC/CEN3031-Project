@@ -45,6 +45,7 @@ import { ListsComponent } from './components/dashboardComponents/lists/lists.com
 import { SettingsComponent } from './components/dashboardComponents/settings/settings.component';
 import { SubscribeComponent } from './components/dashboardComponents/stripeSubcription/subscribe/subscribe.component';
 import { UpdatePlaylistComponent } from './components/dashboardComponents/update-playlist/update-playlist.component';
+import { CreateListComponent } from './components/dashboardComponents/create-list/create-list.component';
 
 
 @NgModule({
@@ -72,7 +73,8 @@ import { UpdatePlaylistComponent } from './components/dashboardComponents/update
     ListsComponent,
     SettingsComponent,
     SubscribeComponent,
-    UpdatePlaylistComponent
+    UpdatePlaylistComponent,
+    CreateListComponent
   ],
 
   imports: [

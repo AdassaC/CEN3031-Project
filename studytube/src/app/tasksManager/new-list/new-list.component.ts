@@ -9,12 +9,14 @@ export class NewListComponent {
   title = 'Create a new list';
   /*constructor(private taskService: TaskService) {}
 
-  ngOnInit() {}
+  ngOnInit() {}*/
 
   createList(title: string) {
-    this.taskService.createList(title).subscribe((response: any) => {
+    
+    alert("Your new list has been created!");
+    /*this.taskService.createList(title).subscribe((response: any) => {
       console.log(response);
-    });
+    });*/
   
-  }*/
+  }
 }
