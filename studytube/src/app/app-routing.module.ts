@@ -24,6 +24,7 @@ import { ListsComponent } from './components/dashboardComponents/lists/lists.com
 import { TodoComponent } from './components/todo/todo.component';
 import { StripeComponent } from './components/dashboardComponents/stripeSubcription/stripe/stripe.component';
 import { SubscribeComponent } from './components/dashboardComponents/stripeSubcription/subscribe/subscribe.component';
+import { UpdatePlaylistComponent } from './components/dashboardComponents/update-playlist/update-playlist.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -54,7 +55,8 @@ const routes: Routes = [
   { path: 'todo', component: TodoComponent},
   { path: 'settings', component: SettingsComponent},
   { path: 'stripe', component: StripeComponent},
-  { path: 'subscribe', component: SubscribeComponent}
+  { path: 'subscribe', component: SubscribeComponent},
+  { path: 'update-playlist', component: UpdatePlaylistComponent}
 
   //Gonna have to change to include user id in path
 ];

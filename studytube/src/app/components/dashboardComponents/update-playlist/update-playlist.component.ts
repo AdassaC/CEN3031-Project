@@ -10,7 +10,7 @@ import { StripeService } from 'src/app/stripe.service';
 @Component({
   selector: 'app-update-playlist',
   templateUrl: './update-playlist.component.html',
-  styleUrls: ['./update-playlist.component.css']
+  styleUrls: ['./update-playlist.component.css',  '../dashboard.scss']
 })
 export class UpdatePlaylistComponent {
   constructor(
@@ -18,6 +18,20 @@ export class UpdatePlaylistComponent {
     private spotifyService : SpotifyService, 
     public fb: FormBuilder
   ) {}
+
+  title = "Update Playlist";
+  @Output() submit = new EventEmitter();
+
+  updatePlaylist = this.fb.group({
+    playlistName:['', Validators.required],
+    numberOfSongs: [''],
+    genre1: [''],
+    genre2: [''],
+    
+    userGenres: this.fb.array([
+      this.fb.control('')
+    ])
+  });
   
   onSubmit(pName: string) {
     // TODO: Use EventEmitter with form value

@@ -98,47 +98,43 @@
 						</li>
 						<li><i class='bx bx-chevron-right' ></i></li>
 						<li>
-							<a class="active" href="./playlit"> Generate Playlist</a>
+							<a class="active" href="./playlit"> Update Playlist</a>
 						</li>
 					</ul>
 				</div>
+                <button class="update" type="submit">
+                    <a class="generate" href="./playlist">
+                        Create a New Playlist
+                    </a>
+                </button>
 			</div>
 
 			<ul class="box-info">
 				
 			</ul>
 
-            <section class="playlistGenerator">
-                <div >
-                    <form [formGroup]="playlistForm">
-                        <h2>Create a Playlist</h2>
+            <section class="playlistUpdate">
+                <div>
+                    <form [formGroup]="updatePlaylist">
+                        <h2>Update Your Playlist</h2>
                         <label for="playlist-name">PLAYLIST NAME </label>
-                        <input class="input" id="playlist-name" type="playlistName" placeholder= "''My New Playlist''" formControlName="playlistName" #pName>
+                        <input class="input" id="playlist-name" type="playlistName" placeholder= "Enter playlist name to update" formControlName="playlistName" #pName>
         
-                        <label for="songNumber">MAX NUMBER OF SONGS </label>
-                        <input class="input" id="songNumber" type="songNumber" placeholder= "" formControlName="numberOfSongs">
+                        <label for="songNumber">SONG NAME </label>
+                        <input class="input" id="songName" type="songName" placeholder= "Enter a song name" formControlName="songName">
         
+                        <label for="songNumber">ARTIST NAME </label>
+                        <input class="input" id="songName" type="songName" placeholder= "Enter the song artists' name" formControlName="songName">
+        
+
                         <!--<label for="songNumber">GENRES: </label>
                         <input id="songNumber" type="text" formControlName="numberOfSongs">-->
         
                         <!--GENRES FROM USER INPUT-->
-                        <div formArrayName="genres">
-                            
-                            <div class = "form-row">
-                                <button type="button" (click)="addUserGenres()">+ Add a Genre</button>
-        
-                                <div *ngFor="let genre of userGenres.controls; let i=index">
-                                    <!-- The repeated genres template -->
-                                    <!--<label for="genre-{{ i }}">GENRE</label>-->
-                                    <input class="genre" id="genre-{{ i }}" type="text" placeholder="Choose a genre..." [formControlName]="i">
-                                </div>
-                            </div>
-        
-                        </div>
         
                         <button class="submit" type="submit" (click)="onSubmit(pName.value)">
-                            <a class="generate" href="./playlist">
-                                Generate Playlist
+                            <a class="generate" href="./update-playlist">
+                                Add Song to Playlist
                             </a>
                         </button>
                     </form>

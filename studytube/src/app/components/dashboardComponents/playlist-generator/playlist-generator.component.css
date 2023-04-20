@@ -103,3 +103,7 @@ label{
 .generate {
     color: white;
 }
+.update {
+    max-width: fit-content;
+    background-color: #2703a6;
+}
