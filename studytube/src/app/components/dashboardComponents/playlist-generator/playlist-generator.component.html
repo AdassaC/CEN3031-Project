@@ -69,7 +69,7 @@
 		<nav>
 			<i class='bx bx-menu' ></i>
 			<a href="#" class="nav-link">Categories</a>
-			<form action="#">
+			<form class="searchForm" action="#">
 				<div class="form-input">
 					<input type="search" placeholder="Search...">
 					<button type="submit" class="search-btn"><i class='bx bx-search' ></i></button>
@@ -113,10 +113,10 @@
                     <form [formGroup]="playlistForm">
                         <h2>Create a Playlist</h2>
                         <label for="playlist-name">PLAYLIST NAME </label>
-                        <input id="playlist-name" type="playlistName" placeholder= "''My New Playlist''" formControlName="playlistName">
+                        <input class="input" id="playlist-name" type="playlistName" placeholder= "''My New Playlist''" formControlName="playlistName" #pName>
         
                         <label for="songNumber">MAX NUMBER OF SONGS </label>
-                        <input id="songNumber" type="songNumber" placeholder= "" formControlName="numberOfSongs">
+                        <input class="input" id="songNumber" type="songNumber" placeholder= "" formControlName="numberOfSongs">
         
                         <!--<label for="songNumber">GENRES: </label>
                         <input id="songNumber" type="text" formControlName="numberOfSongs">-->
@@ -136,7 +136,7 @@
         
                         </div>
         
-                        <button class="submit" type="submit" (click)="onSubmit()" [disabled]="!playlistForm.valid">Generate Playlist</button>
+                        <button class="submit" type="submit" (click)="onSubmit(pName.value)">Generate Playlist</button>
                     </form>
                 </div>
             </section>
@@ -146,6 +146,4 @@
 
 	</section>
 	<!-- CONTENT -->
-
-
 </body>

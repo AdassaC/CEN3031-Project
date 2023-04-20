@@ -5,6 +5,7 @@ import { MAT_FORM_FIELD, MatFormField, MatFormFieldControl } from '@angular/mate
 import { EventEmitter, Output } from '@angular/core';
 import { SpotifyService } from 'src/app/spotify.service';
 import { AuthService } from 'src/app/shared/services/auth';
+import { StripeService } from 'src/app/stripe.service';
 
 @Component({
   selector: 'app-playlist-generator',
@@ -37,10 +38,14 @@ export class PlaylistGeneratorComponent {
     this.userGenres.push(this.fb.control(''));
   }
   
-  onSubmit() {
+  onSubmit(pName: string) {
     // TODO: Use EventEmitter with form value
-    console.warn(this.playlistForm.value);
-    this.submit.emit(this.playlistForm.value);
+    /*console.warn(this.playlistForm.value);
+    this.submit.emit(this.playlistForm.value);*/
+
+    this.spotifyService.createPlaylist(
+      pName
+    )
     alert("New playlist created");
   }
 

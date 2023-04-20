@@ -14,7 +14,8 @@ body{
   background: #3C87FF;
 }
 .wrapper{
-  max-width: 405px;
+
+  max-width: inherit;
   padding: 28px 0 30px;
   margin: 10px auto;
   background: #fff;

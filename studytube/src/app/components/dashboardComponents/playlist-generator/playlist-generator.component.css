@@ -6,7 +6,9 @@ body {
 h1 {
     display: flex;
 }
-  
+.searchForm {
+    background: white;
+}  
 form {
     max-height: 800px;
     max-width: 800px;
