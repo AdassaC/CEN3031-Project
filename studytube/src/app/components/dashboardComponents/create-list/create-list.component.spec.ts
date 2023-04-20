@@ -17,7 +17,28 @@ describe('CreateListComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  beforeEach(() => {
+    fixture = TestBed.createComponent(CreateListComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create CreateList', async() => {
+    const fixture = TestBed.createComponent(CreateListComponent);
+    const dashboard = fixture.componentInstance;
+    expect(dashboard).toBeTruthy();
+  });
+
+  it(`should have as title 'Create New List'`, async() => {
+    const fixture = TestBed.createComponent(CreateListComponent);
+    const app = fixture.debugElement.componentInstance;
+    expect(app.title).toEqual('Dashboard');
+  });
+
+  it('should render "Create New List in a title tag', async() => {
+    const fixture = TestBed.createComponent(CreateListComponent);
+    fixture.detectChanges();
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('title').textContent).toContain('Create New List');
   });
 });

@@ -17,7 +17,22 @@ describe('StripeComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('should create Stripe', async() => {
+    const fixture = TestBed.createComponent(StripeComponent);
+    const dashboard = fixture.componentInstance;
+    expect(dashboard).toBeTruthy();
+  });
+
+  it(`should have as title 'Become Members'`, async() => {
+    const fixture = TestBed.createComponent(StripeComponent);
+    const app = fixture.debugElement.componentInstance;
+    expect(app.title).toEqual('Become Member');
+  });
+
+  it('should render "Become Member" in a title tag', async() => {
+    const fixture = TestBed.createComponent(StripeComponent);
+    fixture.detectChanges();
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('title').textContent).toContain('Become Member');
   });
 });
