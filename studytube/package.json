@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "if [ \"$OS\" = \"Windows_NT\" ]; then .\\serve.sh; else ./serve.sh; fi",
+    "start": "if \"%OS%\" == \"Windows_NT\" ( .\\serve.sh ) else ( sh ./serve.sh )",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",

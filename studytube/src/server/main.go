@@ -67,7 +67,6 @@ func main() {
 	}
 	defer client.Disconnect(context.TODO())
 
-	// collection := client.Database("CEN3031_Test").Collection("TestStructure")
 }
 
 // httpHandler creates the backend HTTP router for queries, types,
@@ -77,11 +76,17 @@ func main() {
 
 // 	router.HandleFunc("/hello-world", helloWorld)
 // 	//routing for retrieving taskList and addTask
-// 	router.HandleFunc("/tasks/{userID}", handleGetTasksByUserID).Methods("GET")
-// 	router.HandleFunc("/tasks", handleAddTask).Methods("POST")
-// 	router.HandleFunc("/tasks/status", handleUpdateStatus).Methods("PUT")
-// 	router.HandleFunc("/tasks/delete", handleDeleteTask).Methods("DELETE")
-// 	router.HandleFunc("/tasks/description", handleGetTaskByDescriptionAndUserID).Methods("GET")
+
+// router.HandleFunc("/tasklists", handleGetTaskListsByUserID).Queries("userId", "{userId}").Methods("GET")
+// router.HandleFunc("/tasklists/{userID}/{listName}", handleGetTaskListByUserIDAndListName).Methods("GET")
+// router.HandleFunc("/tasklists", handleAddTaskList).Methods("POST")
+// router.HandleFunc("/tasklists/{userID}/{listName}", handleDeleteTaskList).Methods("DELETE")
+// router.HandleFunc("/tasklists/{userID}/{listName}", handleUpdateTaskList).Methods("PUT")
+// router.HandleFunc("/tasks", handleGetTasksByUserIDAndListName).Queries("userId", "{userId}").Queries("listName", "{listName}").Methods("GET")
+// router.HandleFunc("/tasks/{userID}/{listName}/{taskID}", handleGetTaskByUserIDListNameAndTaskID).Methods("GET")
+// router.HandleFunc("/tasks", handleAddTask).Queries("userId", "{userId}").Queries("listName", "{listName}").Methods("POST")
+// router.HandleFunc("/tasks/{userID}/{listName}/{taskID}", handleDeleteTask).Methods("DELETE")
+// router.HandleFunc("/tasks/{userID}/{listName}/{taskID}", handleUpdateTask).Methods("PUT")
 
 // 	// WARNING: this route must be the last route defined.
 
