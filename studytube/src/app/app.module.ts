@@ -44,6 +44,7 @@ import { PlaylistGeneratorComponent } from './components/dashboardComponents/pla
 import { ListsComponent } from './components/dashboardComponents/lists/lists.component';
 import { SettingsComponent } from './components/dashboardComponents/settings/settings.component';
 import { SubscribeComponent } from './components/dashboardComponents/stripeSubcription/subscribe/subscribe.component';
+import { UpdatePlaylistComponent } from './components/dashboardComponents/update-playlist/update-playlist.component';
 
 
 @NgModule({
@@ -70,7 +71,8 @@ import { SubscribeComponent } from './components/dashboardComponents/stripeSubcr
     PlaylistGeneratorComponent,
     ListsComponent,
     SettingsComponent,
-    SubscribeComponent
+    SubscribeComponent,
+    UpdatePlaylistComponent
   ],
 
   imports: [
