@@ -17,7 +17,20 @@ describe('SettingsComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create SettingsComponent', async() => {
     expect(component).toBeTruthy();
+  });
+
+  it(`should have as title 'Settings'`, async() => {
+    const fixture = TestBed.createComponent(SettingsComponent);
+    const app = fixture.debugElement.componentInstance;
+    expect(app.title).toEqual('Settings');
+  });
+
+  it('should render "Create New List in a title tag', async() => {
+    const fixture = TestBed.createComponent(SettingsComponent);
+    fixture.detectChanges();
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('title').textContent).toContain('Settings');
   });
 });
